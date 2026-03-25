@@ -1,6 +1,8 @@
 import { unstable_cache } from "next/cache";
 import {
   createExcerpt,
+  extractFirstImageFromMarkdown,
+  extractImagesFromMarkdown,
   extractTitleFromMarkdown,
   markdownToHtml,
   parseTrailingFrontmatter,
@@ -63,6 +65,29 @@ function categoryFromPath(slugSegments: string[]): string[] {
   return [slugSegments[0]];
 }
 
+function filterArticles(
+  articles: Article[],
+  options: {
+    category?: string;
+    tag?: string;
+  },
+): Article[] {
+  const normalizedCategory = options.category ? normalizeCategory(options.category) : undefined;
+  const normalizedTag = options.tag ? normalizeTag(options.tag) : undefined;
+
+  return articles.filter((article) => {
+    const categoryMatched = normalizedCategory
+      ? article.categories.some((item) => normalizeCategory(item) === normalizedCategory)
+      : true;
+
+    const tagMatched = normalizedTag
+      ? article.tags.some((item) => normalizeTag(item) === normalizedTag)
+      : true;
+
+    return categoryMatched && tagMatched;
+  });
+}
+
 async function fetchAllArticlesUncached(): Promise<Article[]> {
   const tree = await getRepositoryTree();
   const markdownPaths = tree.tree
@@ -100,19 +125,25 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
       const coverImage = parsed.frontmatter.cover_image
         ? new URL(parsed.frontmatter.cover_image, `${rawArticleDirUrl}/`).toString()
         : undefined;
+      const contentImages = extractImagesFromMarkdown(normalizedMarkdown);
+      const previewImage = coverImage ?? extractFirstImageFromMarkdown(normalizedMarkdown);
+      const excerpt = createExcerpt(parsed.body);
 
       return {
         slug,
         slugSegments,
         sourcePath: markdownPath,
         title,
-        excerpt: createExcerpt(parsed.body),
+        excerpt,
+        excerptSource: "first-paragraph",
         htmlContent,
         markdownContent: normalizedMarkdown,
         author: parsed.frontmatter.author,
         categories,
         tags,
         coverImage,
+        previewImage,
+        contentImages,
         publishedAt: toIsoDate(parsed.frontmatter.date),
       };
     }),
@@ -165,12 +196,8 @@ export async function getAllCategories(): Promise<string[]> {
 }
 
 export async function getArticlesByCategory(category: string): Promise<Article[]> {
-  const normalized = normalizeCategory(category);
   const articles = await getAllArticles();
-
-  return articles.filter((article) =>
-    article.categories.some((item) => normalizeCategory(item) === normalized),
-  );
+  return filterArticles(articles, { category });
 }
 
 export async function getAllTags(): Promise<string[]> {
@@ -187,10 +214,11 @@ export async function getAllTags(): Promise<string[]> {
 }
 
 export async function getArticlesByTag(tag: string): Promise<Article[]> {
-  const normalized = normalizeTag(tag);
   const articles = await getAllArticles();
+  return filterArticles(articles, { tag });
+}
 
-  return articles.filter((article) =>
-    article.tags.some((item) => normalizeTag(item) === normalized),
-  );
+export async function getArticlesByTagAndCategory(tag: string, category?: string): Promise<Article[]> {
+  const articles = await getAllArticles();
+  return filterArticles(articles, { tag, category });
 }

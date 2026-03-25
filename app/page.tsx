@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CalendarClock, FolderOpen, Rss, Tag } from "lucide-react";
 import { getAllCategories, getAllTags, getLatestArticles } from "@/lib/articles";
+import SummaryImageStrip from "@/app/components/summary-image-strip";
 
 function formatDate(date?: string): string {
   if (!date) {
@@ -59,6 +60,7 @@ export default async function Home() {
                 </Link>
               </h3>
               <p className="mt-2 text-zinc-600 dark:text-zinc-300">{article.excerpt || "暂无摘要"}</p>
+              <SummaryImageStrip images={article.contentImages} title={article.title} />
               <div className="mt-4 inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400">
                 <CalendarClock className="h-4 w-4" aria-hidden="true" />
                 {formatDate(article.publishedAt)}
@@ -77,7 +79,7 @@ export default async function Home() {
               <Link
                 key={category}
                 href={`/category/${encodeURIComponent(category)}`}
-                className="inline-flex min-h-10 items-center rounded-full bg-zinc-100 px-3 py-1 text-sm text-zinc-700 transition hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-100 dark:hover:text-zinc-900"
+                className="inline-flex min-h-11 items-center rounded-full bg-zinc-100 px-3 py-1 text-sm text-zinc-700 transition active:scale-[0.98] hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-100 dark:hover:text-zinc-900"
               >
                 {category}
               </Link>
@@ -93,7 +95,7 @@ export default async function Home() {
               <Link
                 key={tag}
                 href={`/tag/${encodeURIComponent(tag)}`}
-                className="inline-flex min-h-10 items-center rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-sm text-teal-700 transition hover:border-teal-300 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-300 dark:hover:bg-teal-900/60"
+                className="inline-flex min-h-11 items-center rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-sm text-teal-700 transition active:scale-[0.98] hover:border-teal-300 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-300 dark:hover:bg-teal-900/60"
               >
                 #{tag}
               </Link>

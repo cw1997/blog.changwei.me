@@ -38,6 +38,15 @@ export async function generateMetadata({
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: `/blog/${article.slug}`,
+    },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: "article",
+      images: article.previewImage ? [{ url: article.previewImage, alt: `${article.title} 配图` }] : undefined,
+    },
   };
 }
 
@@ -72,32 +81,32 @@ export default async function BlogDetailPage({
           ) : null}
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2" aria-label="文章分类">
+        <nav className="mt-4 flex flex-wrap gap-2" aria-label="文章分类">
           {article.categories.map((category) => (
             <Link
               key={`${article.slug}-${category}`}
               href={`/category/${encodeURIComponent(category)}`}
-              className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-zinc-100 px-3 text-xs font-medium text-zinc-700 transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800 dark:text-zinc-100"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-zinc-100 px-3 text-xs font-medium text-zinc-700 transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800 dark:text-zinc-100"
             >
               <FolderOpen className="h-3.5 w-3.5" aria-hidden="true" />
               {category}
             </Link>
           ))}
-        </div>
+        </nav>
 
         {article.tags.length > 0 ? (
-          <div className="mt-3 flex flex-wrap gap-2" aria-label="文章标签">
+          <nav className="mt-3 flex flex-wrap gap-2" aria-label="文章标签">
             {article.tags.map((tag) => (
               <Link
                 key={`${article.slug}-${tag}`}
-                href={`/blog?tag=${encodeURIComponent(tag)}`}
-                className="inline-flex min-h-9 items-center gap-1 rounded-full border border-teal-200 bg-teal-50 px-3 text-xs font-medium text-teal-700 transition hover:border-teal-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-300"
+                href={`/tag/${encodeURIComponent(tag)}`}
+                className="inline-flex min-h-11 items-center gap-1 rounded-full border border-teal-200 bg-teal-50 px-3 text-xs font-medium text-teal-700 transition hover:border-teal-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-300"
               >
                 <Tag className="h-3.5 w-3.5" aria-hidden="true" />
                 {tag}
               </Link>
             ))}
-          </div>
+          </nav>
         ) : null}
 
         {article.coverImage ? (

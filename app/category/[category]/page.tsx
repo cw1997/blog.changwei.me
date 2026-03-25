@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CalendarClock } from "lucide-react";
 import { getArticlesByCategory } from "@/lib/articles";
+import SummaryImageStrip from "@/app/components/summary-image-strip";
 
 function formatDate(date?: string): string {
   if (!date) {
@@ -10,6 +13,27 @@ function formatDate(date?: string): string {
   return new Intl.DateTimeFormat("zh-CN", {
     dateStyle: "medium",
   }).format(new Date(date));
+}
+
+function buildCategoryHref(category: string): string {
+  return `/category/${encodeURIComponent(category)}`;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
+
+  return {
+    title: `${decodedCategory} 分类文章`,
+    description: `查看分类 ${decodedCategory} 下的全部文章。`,
+    alternates: {
+      canonical: buildCategoryHref(decodedCategory),
+    },
+  };
 }
 
 export default async function CategoryPage({
@@ -46,7 +70,11 @@ export default async function CategoryPage({
               </Link>
             </h2>
             <p className="mt-3 text-zinc-600 dark:text-zinc-300">{article.excerpt || "暂无摘要"}</p>
-            <div className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">{formatDate(article.publishedAt)}</div>
+            <SummaryImageStrip images={article.contentImages} title={article.title} />
+            <div className="mt-4 inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+              <CalendarClock className="h-4 w-4" aria-hidden="true" />
+              {formatDate(article.publishedAt)}
+            </div>
           </article>
         ))}
       </section>

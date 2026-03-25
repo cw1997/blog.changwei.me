@@ -14,12 +14,15 @@ export interface Article {
   sourcePath: string;
   title: string;
   excerpt: string;
+  excerptSource: "first-paragraph";
   htmlContent: string;
   markdownContent: string;
   author?: string;
   categories: string[];
   tags: string[];
   coverImage?: string;
+  previewImage?: string;
+  contentImages: string[];
   publishedAt?: string;
 }
 

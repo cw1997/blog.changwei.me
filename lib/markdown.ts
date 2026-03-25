@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
 import type { ArticleFrontmatter } from "@/lib/types";
 
+const LEADING_FRONTMATTER_BLOCK_REGEX = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/;
 const FRONTMATTER_BLOCK_REGEX = /(?:\n|^)---\s*\n([\s\S]*?)\n---\s*$/;
 const FRONTMATTER_LINE_REGEX = /^([A-Za-z_][\w-]*):\s*(.*)$/;
 
@@ -30,6 +31,62 @@ function escapeHtmlAttribute(value: string): string {
     .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+function stripMarkdownToPlainText(markdown: string): string {
+  return markdown
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/^\s{0,3}#{1,6}\s+/gm, "")
+    .replace(/^\s{0,3}>\s?/gm, "")
+    .replace(/^\s{0,3}(?:-|\*|\+)\s+/gm, "")
+    .replace(/^\s{0,3}\d+\.\s+/gm, "")
+    .replace(/[\*_~]/g, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function looksLikeFrontmatterLine(line: string): boolean {
+  const trimmed = line.trim();
+  return FRONTMATTER_LINE_REGEX.test(trimmed);
+}
+
+function extractFirstMeaningfulParagraph(markdown: string): string {
+  const normalized = normalizeLineEndings(markdown).trim();
+
+  if (!normalized) {
+    return "";
+  }
+
+  const paragraphs = normalized
+    .split(/\n\s*\n+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  for (const paragraph of paragraphs) {
+    if (paragraph.startsWith("```")) {
+      continue;
+    }
+
+    if (paragraph.startsWith("#")) {
+      continue;
+    }
+
+    const lines = paragraph.split("\n").map((line) => line.trim()).filter(Boolean);
+    if (lines.length > 0 && lines.every(looksLikeFrontmatterLine)) {
+      continue;
+    }
+
+    const plain = stripMarkdownToPlainText(paragraph);
+    if (plain) {
+      return plain;
+    }
+  }
+
+  return stripMarkdownToPlainText(normalized);
 }
 
 function parseArrayLikeValue(value: string): string[] {
@@ -88,28 +145,29 @@ export function parseTrailingFrontmatter(markdown: string): {
   body: string;
   frontmatter: ArticleFrontmatter;
 } {
-  const normalized = normalizeLineEndings(markdown).trimEnd();
-  const match = normalized.match(FRONTMATTER_BLOCK_REGEX);
+  let body = normalizeLineEndings(markdown).trimEnd();
+  let frontmatter: ArticleFrontmatter = {};
 
-  if (!match || typeof match.index !== "number") {
-    return {
-      body: normalized.trim(),
-      frontmatter: {},
+  const leading = body.match(LEADING_FRONTMATTER_BLOCK_REGEX);
+  if (leading && hasFrontmatterPairs(leading[1])) {
+    body = body.slice(leading[0].length).trimStart();
+    frontmatter = {
+      ...frontmatter,
+      ...parseFrontmatter(leading[1]),
     };
   }
 
-  if (!hasFrontmatterPairs(match[1])) {
-    return {
-      body: normalized.trim(),
-      frontmatter: {},
+  const trailing = body.match(FRONTMATTER_BLOCK_REGEX);
+  if (trailing && typeof trailing.index === "number" && hasFrontmatterPairs(trailing[1])) {
+    body = body.slice(0, trailing.index).trimEnd();
+    frontmatter = {
+      ...frontmatter,
+      ...parseFrontmatter(trailing[1]),
     };
   }
-
-  const body = normalized.slice(0, match.index).trim();
-  const frontmatter = parseFrontmatter(match[1]);
 
   return {
-    body,
+    body: body.trim(),
     frontmatter,
   };
 }
@@ -124,15 +182,7 @@ export function extractTitleFromMarkdown(markdown: string): string | undefined {
 }
 
 export function createExcerpt(markdown: string, maxLength = 180): string {
-  const plainText = markdown
-    .replace(/```[\s\S]*?```/g, "")
-    .replace(/`([^`]+)`/g, "$1")
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-    .replace(/\[[^\]]+\]\([^)]*\)/g, "$1")
-    .replace(/^#+\s+/gm, "")
-    .replace(/[>*_~\-]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  const plainText = extractFirstMeaningfulParagraph(markdown);
 
   if (!plainText) {
     return "";
@@ -143,6 +193,33 @@ export function createExcerpt(markdown: string, maxLength = 180): string {
   }
 
   return `${plainText.slice(0, maxLength).trimEnd()}...`;
+}
+
+export function extractFirstImageFromMarkdown(markdown: string): string | undefined {
+  return extractImagesFromMarkdown(markdown, 1)[0];
+}
+
+export function extractImagesFromMarkdown(markdown: string, maxCount = 30): string[] {
+  const regex = /!\[[^\]]*\]\(([^)]+)\)/g;
+  const uniqueImages = new Set<string>();
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(markdown)) !== null) {
+    const raw = match[1].trim().replace(/^<|>$/g, "");
+    const path = raw.split(/\s+/)[0]?.replace(/^['\"]|['\"]$/g, "");
+
+    if (!path || path.startsWith("data:")) {
+      continue;
+    }
+
+    uniqueImages.add(path);
+
+    if (uniqueImages.size >= maxCount) {
+      break;
+    }
+  }
+
+  return [...uniqueImages];
 }
 
 export function resolveMarkdownAssetUrls(markdown: string, rawArticleDirUrl: string): string {
@@ -172,7 +249,7 @@ export function wrapImagesWithScrollContainer(html: string): string {
       ? attributes
       : `${attributes} alt="${escapeHtmlAttribute("image")}"`;
 
-    return `<span class="md-image-scroll"><img ${safeAttributes}></span>`;
+    return `<span class="md-image-scroll" role="group" aria-label="文章图片（可横向滚动）"><img ${safeAttributes}></span>`;
   });
 }
 

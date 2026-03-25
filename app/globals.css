@@ -4,10 +4,14 @@
 :root {
   --background: #ffffff;
   --foreground: #111827;
-  --muted: #52525b;
+  --muted: #484854;
   --border: #e4e4e7;
   --surface: #ffffff;
   --surface-soft: #f4f4f5;
+  --accent: #0f766e;
+  --accent-soft: #ccfbf1;
+  --focus-ring: #14b8a6;
+  --card-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
   color-scheme: light;
 }
 
@@ -21,10 +25,14 @@
 :root[data-theme="dark"] {
   --background: #09090b;
   --foreground: #f4f4f5;
-  --muted: #a1a1aa;
+  --muted: #9ca3af;
   --border: #27272a;
   --surface: #111827;
   --surface-soft: #18181b;
+  --accent: #2dd4bf;
+  --accent-soft: #0f172a;
+  --focus-ring: #5eead4;
+  --card-shadow: 0 14px 36px rgba(2, 6, 23, 0.45);
   color-scheme: dark;
 }
 
@@ -100,10 +108,10 @@ button {
 .markdown-body pre {
   overflow-x: auto;
   border-radius: 0.75rem;
-  background: #18181b;
+  background: var(--surface-soft);
   padding: 0.85rem;
-  color: #f9fafb;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--foreground);
+  border: 1px solid var(--border);
 }
 
 .markdown-body pre code {
@@ -113,16 +121,22 @@ button {
 }
 
 .markdown-body blockquote {
-  border-left: 4px solid #0f766e;
+  border-left: 4px solid var(--accent);
   padding-left: 0.9rem;
   color: var(--muted);
 }
 
 .markdown-body a {
-  color: #0f766e;
+  color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
+}
+
+.markdown-body a:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 0.2rem;
 }
 
 .markdown-body img {
@@ -135,6 +149,7 @@ button {
   display: block;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   border-radius: 0.8rem;
   border: 1px solid var(--border);
   margin: 1rem 0;
@@ -159,6 +174,26 @@ button {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (pointer: coarse) {
+  a:active,
+  button:active {
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
