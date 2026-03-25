@@ -1,35 +1,23 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ignore everything in the root except the "wp-content" directory.
+!wp-content/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# ignore everything in the "wp-content" directory, except:
+# "mu-plugins", "plugins", "themes" directory
+wp-content/*
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
 
-# testing
-/coverage
+# ignore these plugins
+wp-content/plugins/hello.php
 
-# next.js
-/.next/
-/out/
+# ignore specific themes
+wp-content/themes/twenty*/
 
-# production
-/build
+# ignore node dependency directories
+node_modules/
 
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
