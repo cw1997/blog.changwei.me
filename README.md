@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# blog.changwei.me
 
-## Getting Started
+Personal blog powered by Next.js App Router.
 
-First, run the development server:
+Content is fetched from `https://github.com/cw1997/blog` under the `articles/` directory and rendered as pages.
+
+## Features
+
+- Auto-read all markdown files under `cw1997/blog/articles/**`
+- Support nested article paths through catch-all route `/blog/[...slug]`
+- Parse trailing frontmatter (metadata stored at markdown file tail)
+- Render markdown with GFM support
+- Category + Tag filtering on article list (`/blog?category=...&tag=...`)
+- Light/Dark theme toggle (default follows system, user choice persisted in `localStorage`)
+- Markdown oversized images support horizontal scrolling without breaking layout
+- Mobile-friendly navigation and improved focus accessibility
+- Category pages and homepage latest list
+- RSS feed at `/rss.xml`
+- On-demand ISR via webhook route `/api/revalidate`
+
+## Local Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:31006`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+By default this project starts on port `31006` in development:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev
+# -> http://localhost:31006
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Set these in your deployment platform (or `.env.local`):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Optional. Helps avoid GitHub API rate limits.
+GITHUB_TOKEN=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Required for triggering on-demand revalidation from GitHub webhook.
+REVALIDATE_SECRET=replace-with-a-random-string
 
-## Deploy on Vercel
+# Used by RSS links.
+NEXT_PUBLIC_SITE_URL=https://your-domain.example
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## GitHub Webhook Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In repository `cw1997/blog`:
+
+1. Open Settings -> Webhooks -> Add webhook.
+2. Payload URL:
+
+```text
+https://your-domain.example/api/revalidate?secret=REVALIDATE_SECRET
+```
+
+3. Content type: `application/json`
+4. Events: choose `Just the push event`
+5. Save.
+
+After each push to `cw1997/blog`, the blog cache is invalidated and pages refresh on next request.
+
+## Build
+
+```bash
+pnpm build
+pnpm start
+```
+
+## Notes
+
+- This project targets modern Next.js App Router behavior.
+- On Next.js 16+, `revalidateTag` requires a cache profile argument and is already handled in the implementation.
+- The list and detail pages currently keep native `img` rendering for markdown images to preserve natural width + horizontal scroll behavior.
