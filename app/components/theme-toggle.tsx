@@ -62,15 +62,15 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={onToggle}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-300 bg-white text-zinc-700 transition active:scale-[0.98] hover:border-zinc-800 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-zinc-200"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-md text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
       aria-label={theme === "dark" ? "切换到浅色模式" : "切换到深色模式"}
       aria-pressed={theme === "dark"}
       title={theme === "dark" ? "切换到浅色模式" : "切换到深色模式"}
     >
       {theme === "dark" ? (
-        <Sun className="h-5 w-5" aria-hidden="true" />
+        <Sun className="h-4 w-4" aria-hidden="true" />
       ) : (
-        <Moon className="h-5 w-5" aria-hidden="true" />
+        <Moon className="h-4 w-4" aria-hidden="true" />
       )}
     </button>
   );

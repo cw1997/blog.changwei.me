@@ -52,8 +52,8 @@ export default function RootLayout({
         </a>
         <SiteHeader />
         {children}
-        <footer className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
-          <div className="mx-auto w-full max-w-6xl px-6 py-6 text-sm text-zinc-500 dark:text-zinc-400">
+        <footer className="border-t border-zinc-100 dark:border-zinc-800">
+          <div className="mx-auto w-full max-w-5xl px-6 py-6 text-sm text-zinc-400 dark:text-zinc-500">
             Content synced from GitHub repository cw1997/blog.
           </div>
         </footer>

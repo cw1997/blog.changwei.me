@@ -64,29 +64,29 @@ export default function SiteHeader() {
   }, [isOpen]);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/90 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/85">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+    <header className="sticky top-0 z-30 border-b border-zinc-100 bg-white/95 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-5 py-3.5 md:px-6">
         <Link
           href="/"
-          className="rounded-md text-base font-semibold tracking-tight text-zinc-900 transition hover:text-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-100 dark:hover:text-teal-300 md:text-lg"
+          className="text-base font-bold tracking-tight text-zinc-900 transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-100 dark:hover:text-green-400 md:text-lg"
           aria-label="返回首页"
           onClick={closeMenu}
         >
           Chang Wei Blog
         </Link>
 
-        <div className="flex items-center gap-2">
-          <nav aria-label="主导航" className="hidden items-center gap-2 md:flex">
+        <div className="flex items-center gap-1">
+          <nav aria-label="主导航" className="hidden items-center gap-0.5 md:flex">
             <Link
               href="/blog"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium text-zinc-600 transition active:scale-[0.98] hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"
+              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             >
               <BookOpenText className="h-4 w-4" aria-hidden="true" />
               文章
             </Link>
             <Link
               href="/rss.xml"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium text-zinc-600 transition active:scale-[0.98] hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"
+              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             >
               <Rss className="h-4 w-4" aria-hidden="true" />
               RSS
@@ -95,7 +95,7 @@ export default function SiteHeader() {
               href="https://github.com/cw1997/blog"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium text-zinc-600 transition active:scale-[0.98] hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-zinc-100"
+              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             >
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
               Source
@@ -108,7 +108,7 @@ export default function SiteHeader() {
             ref={menuButtonRef}
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-300 text-zinc-700 transition active:scale-[0.98] hover:border-zinc-800 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-zinc-700 dark:text-zinc-100 md:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100 md:hidden"
             aria-label={isOpen ? "收起菜单" : "展开菜单"}
             aria-expanded={isOpen}
             aria-controls="mobile-main-nav"
@@ -123,13 +123,13 @@ export default function SiteHeader() {
           ref={mobileNavRef}
           id="mobile-main-nav"
           aria-label="移动端导航"
-          className="border-t border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-950 md:hidden"
+          className="border-t border-zinc-100 bg-white px-5 py-2 dark:border-zinc-800 dark:bg-zinc-950 md:hidden"
         >
-          <div className="grid gap-2">
+          <div className="grid gap-1">
             <Link
               href="/blog"
               onClick={closeMenu}
-              className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-zinc-700 transition active:scale-[0.98] hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-200 dark:hover:bg-zinc-900"
+              className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
             >
               <BookOpenText className="h-4 w-4" aria-hidden="true" />
               文章
@@ -137,7 +137,7 @@ export default function SiteHeader() {
             <Link
               href="/rss.xml"
               onClick={closeMenu}
-              className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-zinc-700 transition active:scale-[0.98] hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-200 dark:hover:bg-zinc-900"
+              className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
             >
               <Rss className="h-4 w-4" aria-hidden="true" />
               RSS
@@ -146,7 +146,7 @@ export default function SiteHeader() {
               href="https://github.com/cw1997/blog"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-zinc-700 transition active:scale-[0.98] hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-zinc-200 dark:hover:bg-zinc-900"
+              className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
             >
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
               Source

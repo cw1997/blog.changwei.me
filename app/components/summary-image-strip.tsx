@@ -23,13 +23,13 @@ export default function SummaryImageStrip({ images, title }: SummaryImageStripPr
           {shownImages.map((src, index) => (
             <li
               key={`${src}-${index}`}
-              className="relative h-24 w-[160px] shrink-0 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900"
+              className="relative h-20 w-[140px] shrink-0 overflow-hidden rounded-md border border-zinc-100 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900"
             >
               <Image
                 src={src}
                 alt={`${title} 正文图片 ${index + 1}`}
                 fill
-                sizes="160px"
+                sizes="140px"
                 unoptimized
                 className="object-cover"
               />
@@ -37,7 +37,7 @@ export default function SummaryImageStrip({ images, title }: SummaryImageStripPr
           ))}
 
           {hasMore ? (
-            <li className="flex h-24 w-[160px] shrink-0 items-center justify-center rounded-lg border border-zinc-300 bg-zinc-100 text-lg font-semibold text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+            <li className="flex h-20 w-[140px] shrink-0 items-center justify-center rounded-md border border-zinc-200 bg-zinc-50 text-base font-semibold text-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-500">
               +{remainingCount}
             </li>
           ) : null}

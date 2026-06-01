@@ -76,38 +76,37 @@ export default async function BlogPage({
   });
 
   return (
-    <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-4 py-8 md:px-6 md:py-12">
-      <header className="flex flex-col gap-4">
-        <p className="text-sm font-medium uppercase tracking-[0.22em] text-teal-700 dark:text-teal-300">Blog</p>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">全部文章</h1>
-        <p className="max-w-2xl text-base text-zinc-600 dark:text-zinc-300">自动同步自 GitHub 仓库 cw1997/blog/articles，支持多层目录文章。</p>
+    <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-5 py-10 md:px-6 md:py-14">
+      <header className="max-w-2xl">
+        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-5xl">全部文章</h1>
+        <p className="mt-3 text-lg text-zinc-500 dark:text-zinc-400">自动同步自 GitHub 仓库 cw1997/blog/articles，支持多层目录文章。</p>
       </header>
 
-      <section aria-label="文章筛选" className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/70 md:p-5">
+      <section aria-label="文章筛选" className="space-y-4 border-b border-zinc-100 pb-6 dark:border-zinc-800">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-800 dark:text-zinc-200">
-            <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+          <h2 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+            <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
             筛选条件
           </h2>
           {(selectedCategory || selectedTag) && (
             <Link
               href="/blog"
-              className="inline-flex min-h-11 items-center rounded-full border border-zinc-300 px-4 text-sm font-medium text-zinc-700 transition active:scale-[0.98] hover:border-zinc-800 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-zinc-700 dark:text-zinc-100"
+              className="text-xs font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100"
             >
               清除筛选
             </Link>
           )}
         </div>
 
-        <div className="flex items-start gap-3">
-          <FolderOpen className="mt-2 h-4 w-4 text-zinc-500 dark:text-zinc-400" aria-hidden="true" />
-          <div className="flex flex-wrap gap-2">
+        <div className="flex items-start gap-2">
+          <FolderOpen className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden="true" />
+          <div className="flex flex-wrap gap-1.5">
             <Link
               href={buildBlogHref(undefined, selectedTag)}
-              className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
+              className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                 selectedCategory
-                  ? "border-zinc-300 text-zinc-600 hover:border-zinc-900 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300"
-                  : "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+                  ? "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                  : "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
               }`}
             >
               全部分类
@@ -118,10 +117,10 @@ export default async function BlogPage({
                 <Link
                   key={category}
                   href={buildBlogHref(category, selectedTag)}
-                  className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
+                  className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                     active
-                      ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
-                      : "border-zinc-300 text-zinc-600 hover:border-zinc-900 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300"
+                      ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                      : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                   }`}
                 >
                   {category}
@@ -131,15 +130,15 @@ export default async function BlogPage({
           </div>
         </div>
 
-        <div className="flex items-start gap-3">
-          <Tag className="mt-2 h-4 w-4 text-zinc-500 dark:text-zinc-400" aria-hidden="true" />
-          <div className="flex flex-wrap gap-2">
+        <div className="flex items-start gap-2">
+          <Tag className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden="true" />
+          <div className="flex flex-wrap gap-1.5">
             <Link
               href={buildBlogHref(selectedCategory)}
-              className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
+              className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                 selectedTag
-                  ? "border-zinc-300 text-zinc-600 hover:border-zinc-900 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300"
-                  : "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+                  ? "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                  : "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
               }`}
             >
               全部标签
@@ -150,10 +149,10 @@ export default async function BlogPage({
                 <Link
                   key={tag}
                   href={buildBlogHref(selectedCategory, tag)}
-                  className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 ${
+                  className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                     active
-                      ? "border-teal-700 bg-teal-700 text-white dark:border-teal-300 dark:bg-teal-300 dark:text-zinc-950"
-                      : "border-zinc-300 text-zinc-600 hover:border-zinc-900 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-300"
+                      ? "bg-green-700 text-white dark:bg-green-600 dark:text-white"
+                      : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                   }`}
                 >
                   #{tag}
@@ -164,21 +163,21 @@ export default async function BlogPage({
         </div>
       </section>
 
-      <section aria-live="polite" aria-atomic="true" className="grid gap-4">
+      <section aria-live="polite" aria-atomic="true" className="divide-y divide-zinc-100 dark:divide-zinc-800">
         {articles.length === 0 && (
-          <article className="rounded-2xl border border-dashed border-zinc-300 bg-white p-7 text-zinc-600 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+          <p className="py-10 text-center text-sm text-zinc-400 dark:text-zinc-500">
             当前筛选条件下暂无文章，尝试切换分类或标签。
-          </article>
+          </p>
         )}
 
         {articles.map((article) => (
-          <article key={article.slug} className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-200 md:p-6">
-            <div className="mb-3 flex flex-wrap gap-2">
+          <article key={article.slug} className="py-7 first:pt-0 last:pb-0">
+            <div className="mb-2.5 flex flex-wrap gap-1.5">
               {article.categories.map((category) => (
                 <Link
                   key={`${article.slug}-${category}`}
                   href={`/category/${encodeURIComponent(category)}`}
-                  className="inline-flex min-h-11 items-center rounded-full bg-zinc-100 px-3 text-xs font-medium text-zinc-700 transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800 dark:text-zinc-200"
+                  className="inline-flex items-center rounded-md bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:bg-zinc-800 dark:text-zinc-400"
                 >
                   {category}
                 </Link>
@@ -187,31 +186,36 @@ export default async function BlogPage({
                 <Link
                   key={`${article.slug}-${tag}`}
                   href={buildBlogHref(selectedCategory, tag)}
-                  className="inline-flex min-h-11 items-center rounded-full border border-teal-200 bg-teal-50 px-3 text-xs font-medium text-teal-700 transition hover:border-teal-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-300"
+                  className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-green-400 dark:hover:bg-green-950/50"
                 >
                   #{tag}
                 </Link>
               ))}
             </div>
 
-            <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
-              <Link href={`/blog/${article.slug}`} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 hover:underline">
+            <h2 className="text-2xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100">
+              <Link
+                href={`/blog/${article.slug}`}
+                className="transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-green-400"
+              >
                 {article.title}
               </Link>
             </h2>
 
-            <p className="mt-3 text-zinc-600 dark:text-zinc-300">{article.excerpt || "暂无摘要"}</p>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 line-clamp-2">
+              {article.excerpt || "暂无摘要"}
+            </p>
             <SummaryImageStrip images={article.contentImages} title={article.title} />
 
-            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+            <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-zinc-400 dark:text-zinc-500">
               <span className="inline-flex items-center gap-1.5">
-                <CalendarClock className="h-4 w-4" aria-hidden="true" />
+                <CalendarClock className="h-3.5 w-3.5" aria-hidden="true" />
                 {formatDate(article.publishedAt)}
               </span>
               {article.author ? <span>{article.author}</span> : null}
               {article.previewImage ? (
                 <span className="inline-flex items-center gap-1.5">
-                  <ImageIcon className="h-4 w-4" aria-hidden="true" />
+                  <ImageIcon className="h-3.5 w-3.5" aria-hidden="true" />
                   含配图
                 </span>
               ) : null}

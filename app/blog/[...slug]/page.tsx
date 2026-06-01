@@ -63,71 +63,72 @@ export default async function BlogDetailPage({
   }
 
   return (
-    <main id="main-content" className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-4 py-8 md:px-6 md:py-10">
-      <article className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 md:p-10">
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.22em] text-teal-700 dark:text-teal-300">Article</p>
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">{article.title}</h1>
+    <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 py-10 md:px-6 md:py-14">
+      <article className="w-full">
+        <header className="mx-auto w-full max-w-[720px]">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Article</p>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[2.6rem]">{article.title}</h1>
 
-        <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
-          <span className="inline-flex items-center gap-1.5">
-            <CalendarClock className="h-4 w-4" aria-hidden="true" />
-            {formatDate(article.publishedAt)}
-          </span>
-          {article.author ? (
+          <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
             <span className="inline-flex items-center gap-1.5">
-              <UserRound className="h-4 w-4" aria-hidden="true" />
-              {article.author}
+              <CalendarClock className="h-4 w-4" aria-hidden="true" />
+              {formatDate(article.publishedAt)}
             </span>
-          ) : null}
-        </div>
+            {article.author ? (
+              <span className="inline-flex items-center gap-1.5">
+                <UserRound className="h-4 w-4" aria-hidden="true" />
+                {article.author}
+              </span>
+            ) : null}
+          </div>
 
-        <nav className="mt-4 flex flex-wrap gap-2" aria-label="文章分类">
-          {article.categories.map((category) => (
-            <Link
-              key={`${article.slug}-${category}`}
-              href={`/category/${encodeURIComponent(category)}`}
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-zinc-100 px-3 text-xs font-medium text-zinc-700 transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:bg-zinc-800 dark:text-zinc-100"
-            >
-              <FolderOpen className="h-3.5 w-3.5" aria-hidden="true" />
-              {category}
-            </Link>
-          ))}
-        </nav>
-
-        {article.tags.length > 0 ? (
-          <nav className="mt-3 flex flex-wrap gap-2" aria-label="文章标签">
+          <nav className="mt-4 flex flex-wrap gap-1.5" aria-label="文章分类与标签">
+            {article.categories.map((category) => (
+              <Link
+                key={`${article.slug}-${category}`}
+                href={`/category/${encodeURIComponent(category)}`}
+                className="inline-flex items-center gap-1 rounded-md bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:bg-zinc-800 dark:text-zinc-400"
+              >
+                <FolderOpen className="h-3 w-3" aria-hidden="true" />
+                {category}
+              </Link>
+            ))}
             {article.tags.map((tag) => (
               <Link
                 key={`${article.slug}-${tag}`}
                 href={`/tag/${encodeURIComponent(tag)}`}
-                className="inline-flex min-h-11 items-center gap-1 rounded-full border border-teal-200 bg-teal-50 px-3 text-xs font-medium text-teal-700 transition hover:border-teal-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-300"
+                className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-green-400 dark:hover:bg-green-950/50"
               >
-                <Tag className="h-3.5 w-3.5" aria-hidden="true" />
+                <Tag className="h-3 w-3" aria-hidden="true" />
                 {tag}
               </Link>
             ))}
           </nav>
-        ) : null}
+        </header>
 
-        {article.coverImage ? (
-          <div className="md-image-scroll mt-6">
-            <Image
-              src={article.coverImage}
-              alt={`${article.title} 封面图`}
-              width={1600}
-              height={900}
-              unoptimized
-              className="h-auto max-w-none"
-            />
-          </div>
-        ) : null}
+        <div className="mx-auto mt-8 w-full max-w-[720px]">
+          {article.coverImage ? (
+            <div className="-mx-5 md:-mx-10">
+              <figure className="md-image-scroll">
+                <Image
+                  src={article.coverImage}
+                  alt={`${article.title} 封面图`}
+                  width={1600}
+                  height={900}
+                  unoptimized
+                  className="h-auto w-full"
+                />
+              </figure>
+            </div>
+          ) : null}
 
-        <section
-          className="markdown-body mt-8"
-          dangerouslySetInnerHTML={{
-            __html: article.htmlContent,
-          }}
-        />
+          <section
+            className="markdown-body mt-10"
+            dangerouslySetInnerHTML={{
+              __html: article.htmlContent,
+            }}
+          />
+        </div>
       </article>
     </main>
   );
