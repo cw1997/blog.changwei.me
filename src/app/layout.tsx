@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import SiteHeader from "@/components/site-header";
 import { defaultLocale, getSiteUrl, siteDescription, siteName } from "@/lib/site";
 import "@/app/globals.css";
@@ -70,6 +72,16 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-0MNNL1G7M3"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-0MNNL1G7M3');`}
+        </Script>
       </head>
       <body className="min-h-full flex flex-col">
         <a
@@ -85,6 +97,7 @@ export default function RootLayout({
             Content synced from GitHub repository cw1997/blog.
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
