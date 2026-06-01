@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 import { defaultLocale, getSiteUrl, siteDescription, siteName } from "@/lib/site";
 import "@/app/globals.css";
@@ -92,11 +93,7 @@ gtag('config', 'G-0MNNL1G7M3');`}
         </a>
         <SiteHeader />
         {children}
-        <footer className="border-t border-zinc-100 dark:border-zinc-800">
-          <div className="mx-auto w-full max-w-5xl px-6 py-6 text-sm text-zinc-400 dark:text-zinc-500">
-            Content synced from GitHub repository cw1997/blog.
-          </div>
-        </footer>
+        <SiteFooter />
         <Analytics />
       </body>
     </html>
