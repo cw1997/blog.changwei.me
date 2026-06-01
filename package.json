@@ -10,7 +10,7 @@
     "lint": "eslint",
     "check-types": "tsc --noEmit",
     "check-types:dev": "tsc --noEmit --watch",
-    "sync:articles": "tsx --env-file=.env.local scripts/sync-articles.ts",
+    "sync:articles": "tsx --env-file=.env scripts/sync-articles.ts",
     "upgrade": "pnpx npm-check-updates -i"
   },
   "dependencies": {
