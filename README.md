@@ -2,11 +2,11 @@
 
 Personal blog powered by Next.js App Router.
 
-Content is fetched from `https://github.com/cw1997/blog` under the `articles/` directory and rendered as pages.
+Content is synced from `cw1997/blog/articles` into `/tmp/articles` before build, then rendered from that local mirror.
 
 ## Features
 
-- Auto-read all markdown files under `cw1997/blog/articles/**`
+- Sync all markdown and asset files under `cw1997/blog/articles/**` into `/tmp/articles`
 - Support nested article paths through catch-all route `/blog/[...slug]`
 - Parse trailing frontmatter (metadata stored at markdown file tail)
 - Render markdown with GFM support
@@ -22,6 +22,7 @@ Content is fetched from `https://github.com/cw1997/blog` under the `articles/` d
 
 ```bash
 pnpm install
+pnpm sync:articles
 pnpm dev
 ```
 
@@ -57,13 +58,14 @@ REVALIDATE_SECRET=replace-with-a-random-string
 # Used by RSS links. Example: https://your-domain.example
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 
-If your content repository is not `cw1997/blog` you can override the coordinates:
+If your content repository is not `cw1997/blog` you can override the coordinates used by the sync script:
 
 ```bash
 # Optional: override the owner/repo/branch used to fetch articles
 GITHUB_OWNER=your_github_username_or_org
 GITHUB_REPO=your_content_repo_name
 GITHUB_BRANCH=main
+ARTICLES_MIRROR_ROOT=/tmp/articles
 ```
 ```
 
@@ -87,7 +89,7 @@ https://your-domain.example/api/revalidate?secret=REVALIDATE_SECRET
 4. Events: choose `Just the push event`
 5. Save.
 
-After each push to `cw1997/blog`, the blog cache is invalidated and pages refresh on next request.
+After each sync + build, the site reads article content from the local mirror instead of GitHub at request time.
 
 ## Build
 
@@ -95,6 +97,8 @@ After each push to `cw1997/blog`, the blog cache is invalidated and pages refres
 pnpm build
 pnpm start
 ```
+
+`pnpm build` automatically runs `pnpm sync:articles` first.
 
 ## Notes
 

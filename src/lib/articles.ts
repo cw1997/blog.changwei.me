@@ -65,6 +65,22 @@ function categoryFromPath(slugSegments: string[]): string[] {
   return [slugSegments[0]];
 }
 
+function resolveArticleAssetUrl(assetPath: string, articleDirPath: string): string {
+  const pathValue = assetPath.trim();
+
+  if (
+    !pathValue ||
+    pathValue.startsWith("http://") ||
+    pathValue.startsWith("https://") ||
+    pathValue.startsWith("#") ||
+    pathValue.startsWith("data:")
+  ) {
+    return pathValue;
+  }
+
+  return new URL(pathValue, `${getRawContentUrl(articleDirPath)}/`).toString();
+}
+
 function filterArticles(
   articles: Article[],
   options: {
@@ -122,9 +138,7 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
 
       const categories = (frontmatterCategories.length > 0 ? frontmatterCategories : categoryFromPath(slugSegments)).map((item) => item.trim());
       const tags = (Array.isArray(parsed.frontmatter.tag) ? parsed.frontmatter.tag : parsed.frontmatter.tag ? [parsed.frontmatter.tag] : []).map((item) => item.trim());
-      const coverImage = parsed.frontmatter.cover_image
-        ? new URL(parsed.frontmatter.cover_image, `${rawArticleDirUrl}/`).toString()
-        : undefined;
+      const coverImage = parsed.frontmatter.cover_image ? resolveArticleAssetUrl(parsed.frontmatter.cover_image, rawArticleDirUrl) : undefined;
       const contentImages = extractImagesFromMarkdown(normalizedMarkdown);
       const previewImage = coverImage ?? extractFirstImageFromMarkdown(normalizedMarkdown);
       const excerpt = createExcerpt(parsed.body);

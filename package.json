@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "pnpm sync:articles",
     "dev": "next dev -p 31006",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "check-types": "tsc --noEmit",
     "check-types:dev": "tsc --noEmit --watch",
+    "sync:articles": "tsx --env-file=.env.local scripts/sync-articles.ts",
     "upgrade": "pnpx npm-check-updates -i"
   },
   "dependencies": {

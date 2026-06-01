@@ -1,10 +1,13 @@
-import type { GitTreeResponse } from "@/lib/types";
+import { readdir, readFile } from "node:fs/promises";
+import path from "node:path";
+import type { GitTreeItem, GitTreeResponse } from "@/lib/types";
 
 // Allow overriding repository coordinates via environment variables for flexibility
 const GITHUB_OWNER = process.env.GITHUB_OWNER ?? "cw1997";
 const GITHUB_REPO = process.env.GITHUB_REPO ?? "blog";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH ?? "main";
 const ARTICLES_ROOT = process.env.ARTICLES_ROOT ?? "articles/";
+const ARTICLES_MIRROR_ROOT = process.env.ARTICLES_MIRROR_ROOT ?? "/tmp/articles";
 
 function getGitHubHeaders(): HeadersInit {
   const headers: HeadersInit = {
@@ -47,12 +50,14 @@ async function githubFetchText(url: string, tags: string[]): Promise<string> {
   return response.text();
 }
 
-export function getRawContentUrl(path: string): string {
-  const encodedPath = path
+export function getRawContentUrl(assetPath: string): string {
+  const relativePath = assetPath.startsWith(ARTICLES_ROOT) ? assetPath.slice(ARTICLES_ROOT.length) : assetPath;
+
+  return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${relativePath
     .split("/")
+    .filter(Boolean)
     .map((segment) => encodeURIComponent(segment))
-    .join("/");
-  return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${encodedPath}`;
+    .join("/")}`;
 }
 
 export function getArticlesRootPath(): string {
@@ -60,10 +65,55 @@ export function getArticlesRootPath(): string {
 }
 
 export async function getRepositoryTree(): Promise<GitTreeResponse> {
-  const treeUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
-  return githubFetchJson<GitTreeResponse>(treeUrl, ["articles", "github-tree"]);
+  async function collectTreeEntries(relativePath: string, entries: GitTreeItem[]): Promise<void> {
+    const absolutePath = path.join(ARTICLES_MIRROR_ROOT, relativePath);
+    const directoryEntries = await readdir(absolutePath, { withFileTypes: true });
+
+    for (const entry of directoryEntries) {
+      const childRelativePath = path.posix.join(relativePath.replace(/\\/g, "/"), entry.name);
+
+      if (entry.isDirectory()) {
+        entries.push({
+          path: childRelativePath,
+          mode: "040000",
+          type: "tree",
+          sha: `local-tree:${childRelativePath}`,
+          url: `file://${path.join(ARTICLES_MIRROR_ROOT, childRelativePath)}`,
+        });
+        await collectTreeEntries(childRelativePath, entries);
+        continue;
+      }
+
+      entries.push({
+        path: childRelativePath,
+        mode: "100644",
+        type: "blob",
+        sha: `local-blob:${childRelativePath}`,
+        url: `file://${path.join(ARTICLES_MIRROR_ROOT, childRelativePath)}`,
+      });
+    }
+  }
+
+  const tree: GitTreeItem[] = [];
+
+  try {
+    await collectTreeEntries(ARTICLES_ROOT, tree);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return { sha: "local-empty", truncated: false, tree: [] };
+    }
+
+    throw error;
+  }
+
+  return {
+    sha: `local:${ARTICLES_MIRROR_ROOT}`,
+    truncated: false,
+    tree,
+  };
 }
 
-export async function getRemoteMarkdown(path: string): Promise<string> {
-  return githubFetchText(getRawContentUrl(path), ["articles", `article:${path}`]);
+export async function getRemoteMarkdown(markdownPath: string): Promise<string> {
+  const localPath = path.join(ARTICLES_MIRROR_ROOT, markdownPath);
+  return readFile(localPath, "utf8");
 }

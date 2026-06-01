@@ -1,6 +1,7 @@
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
+import { getRawContentUrl } from "@/lib/github";
 import type { ArticleFrontmatter } from "@/lib/types";
 
 const LEADING_FRONTMATTER_BLOCK_REGEX = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/;
@@ -222,7 +223,7 @@ export function extractImagesFromMarkdown(markdown: string, maxCount = 30): stri
   return [...uniqueImages];
 }
 
-export function resolveMarkdownAssetUrls(markdown: string, rawArticleDirUrl: string): string {
+export function resolveMarkdownAssetUrls(markdown: string, rawArticleDirPath: string): string {
   return markdown.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, altText: string, rawPath: string) => {
     const path = rawPath.trim().replace(/^['\"]|['\"]$/g, "");
     const normalizedAlt = altText.trim() || inferAltText(path);
@@ -237,7 +238,7 @@ export function resolveMarkdownAssetUrls(markdown: string, rawArticleDirUrl: str
       return `![${normalizedAlt}](${path})`;
     }
 
-    const absoluteUrl = new URL(path, `${rawArticleDirUrl}/`).toString();
+    const absoluteUrl = new URL(path, `${getRawContentUrl(rawArticleDirPath)}/`).toString();
     return `![${normalizedAlt}](${absoluteUrl})`;
   });
 }
