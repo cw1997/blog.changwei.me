@@ -7,7 +7,7 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER ?? "cw1997";
 const GITHUB_REPO = process.env.GITHUB_REPO ?? "blog";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH ?? "main";
 const ARTICLES_ROOT = process.env.ARTICLES_ROOT ?? "articles/";
-const ARTICLES_MIRROR_ROOT = process.env.ARTICLES_MIRROR_ROOT ?? "/tmp/articles";
+const ARTICLES_MIRROR_ROOT = process.env.ARTICLES_MIRROR_ROOT ?? "./tmp";
 
 function getGitHubHeaders(): HeadersInit {
   const headers: HeadersInit = {
