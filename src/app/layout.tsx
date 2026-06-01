@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SiteHeader from "@/components/site-header";
+import { defaultLocale, getSiteUrl, siteDescription, siteName } from "@/lib/site";
 import "@/app/globals.css";
 
 const geistSans = Geist({
@@ -14,8 +15,35 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chang Wei Blog",
-  description: "Personal blog synced from github.com/cw1997/blog",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
+  keywords: ["博客", "技术文章", "Chang Wei"],
+  openGraph: {
+    type: "website",
+    locale: defaultLocale,
+    siteName,
+    title: siteName,
+    description: siteDescription,
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
+  },
 };
 
 const themeInitScript = `(() => {

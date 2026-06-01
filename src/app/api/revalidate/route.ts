@@ -22,7 +22,8 @@ export async function POST(request: Request) {
   revalidateTag("articles", "max");
   revalidateTag("github-tree", "max");
   revalidatePath("/");
-  revalidatePath("/blog");
+  revalidatePath("/articles");
+  revalidatePath("/tags");
   revalidatePath("/rss.xml");
 
   return NextResponse.json({

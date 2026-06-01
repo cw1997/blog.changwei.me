@@ -7,10 +7,13 @@ Content is synced from `cw1997/blog/articles` into `/tmp/articles` before build,
 ## Features
 
 - Sync all markdown and asset files under `cw1997/blog/articles/**` into `/tmp/articles`
-- Support nested article paths through catch-all route `/blog/[...slug]`
+- Support nested article paths through catch-all route `/articles/[...slug]`
 - Parse trailing frontmatter (metadata stored at markdown file tail)
 - Render markdown with GFM support
-- Category + Tag filtering on article list (`/blog?category=...&tag=...`)
+- Category + Tag filtering on article list (`/articles?category=...&tag=...`)
+- Semantic taxonomy URLs: `/categories/[name]`, `/tags`, `/tags/[name]`
+- SEO: sitemap, robots, Open Graph, Twitter cards, JSON-LD
+- Permanent redirects from legacy `/blog`, `/category`, `/tag` paths
 - Light/Dark theme toggle (default follows system, user choice persisted in `localStorage`)
 - Markdown oversized images support horizontal scrolling without breaking layout
 - Mobile-friendly navigation and improved focus accessibility
@@ -55,7 +58,7 @@ GITHUB_TOKEN=your_personal_access_token_here
 # Required for triggering on-demand revalidation from GitHub webhook.
 REVALIDATE_SECRET=replace-with-a-random-string
 
-# Used by RSS links. Example: https://your-domain.example
+# Used by RSS, sitemap, and absolute canonical/OG URLs. Example: https://blog.changwei.me
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 
 If your content repository is not `cw1997/blog` you can override the coordinates used by the sync script:

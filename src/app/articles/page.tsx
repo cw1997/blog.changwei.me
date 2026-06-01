@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CalendarClock, FolderOpen, Image as ImageIcon, SlidersHorizontal, Tag } from "lucide-react";
 import { getAllArticles, getAllCategories, getAllTags } from "@/lib/articles";
+import {
+  buildArticlesHref,
+  categoryPath,
+  createPageMetadata,
+  articlePath,
+  tagPath,
+} from "@/lib/site";
 import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
@@ -15,20 +22,6 @@ function formatDate(date?: string): string {
   }).format(new Date(date));
 }
 
-function buildBlogHref(category?: string, tag?: string): string {
-  const query = new URLSearchParams();
-
-  if (category) {
-    query.set("category", category);
-  }
-  if (tag) {
-    query.set("tag", tag);
-  }
-
-  const value = query.toString();
-  return value ? `/blog?${value}` : "/blog";
-}
-
 export async function generateMetadata({
   searchParams,
 }: {
@@ -38,16 +31,30 @@ export async function generateMetadata({
   const category = params.category?.trim();
   const tag = params.tag?.trim();
 
-  return {
-    title: "全部文章",
-    description: "按分类与标签浏览所有文章。",
-    alternates: {
-      canonical: buildBlogHref(category, tag),
-    },
-  };
+  const title = category && tag
+    ? `${category} · #${tag} 文章`
+    : category
+      ? `${category} 分类文章`
+      : tag
+        ? `#${tag} 标签文章`
+        : "全部文章";
+
+  const description = category && tag
+    ? `浏览分类「${category}」且标签为「${tag}」的文章。`
+    : category
+      ? `浏览分类「${category}」下的全部文章。`
+      : tag
+        ? `浏览标签「${tag}」下的全部文章。`
+        : "按分类与标签浏览所有文章。";
+
+  return createPageMetadata({
+    title,
+    description,
+    canonical: buildArticlesHref(category, tag),
+  });
 }
 
-export default async function BlogPage({
+export default async function ArticlesPage({
   searchParams,
 }: {
   searchParams: Promise<{ category?: string; tag?: string }>;
@@ -90,7 +97,7 @@ export default async function BlogPage({
           </h2>
           {(selectedCategory || selectedTag) && (
             <Link
-              href="/blog"
+              href="/articles"
               className="text-xs font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100"
             >
               清除筛选
@@ -102,7 +109,7 @@ export default async function BlogPage({
           <FolderOpen className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden="true" />
           <div className="flex flex-wrap gap-1.5">
             <Link
-              href={buildBlogHref(undefined, selectedTag)}
+              href={buildArticlesHref(undefined, selectedTag)}
               className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                 selectedCategory
                   ? "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
@@ -116,7 +123,7 @@ export default async function BlogPage({
               return (
                 <Link
                   key={category}
-                  href={buildBlogHref(category, selectedTag)}
+                  href={buildArticlesHref(category, selectedTag)}
                   className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                     active
                       ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
@@ -134,7 +141,7 @@ export default async function BlogPage({
           <Tag className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" aria-hidden="true" />
           <div className="flex flex-wrap gap-1.5">
             <Link
-              href={buildBlogHref(selectedCategory)}
+              href={buildArticlesHref(selectedCategory)}
               className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                 selectedTag
                   ? "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
@@ -148,7 +155,7 @@ export default async function BlogPage({
               return (
                 <Link
                   key={tag}
-                  href={buildBlogHref(selectedCategory, tag)}
+                  href={buildArticlesHref(selectedCategory, tag)}
                   className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                     active
                       ? "bg-green-700 text-white dark:bg-green-600 dark:text-white"
@@ -176,7 +183,7 @@ export default async function BlogPage({
               {article.categories.map((category) => (
                 <Link
                   key={`${article.slug}-${category}`}
-                  href={`/category/${encodeURIComponent(category)}`}
+                  href={categoryPath(category)}
                   className="inline-flex items-center rounded-md bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:bg-zinc-800 dark:text-zinc-400"
                 >
                   {category}
@@ -185,7 +192,7 @@ export default async function BlogPage({
               {article.tags.map((tag) => (
                 <Link
                   key={`${article.slug}-${tag}`}
-                  href={buildBlogHref(selectedCategory, tag)}
+                  href={tagPath(tag)}
                   className="inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-green-400 dark:hover:bg-green-950/50"
                 >
                   #{tag}
@@ -195,7 +202,7 @@ export default async function BlogPage({
 
             <h2 className="text-2xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100">
               <Link
-                href={`/blog/${article.slug}`}
+                href={articlePath(article.slug)}
                 className="transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-green-400"
               >
                 {article.title}

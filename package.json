@@ -6,7 +6,7 @@
     "prebuild": "pnpm run sync:articles",
     "dev": "next dev -p 31006",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 31006",
     "lint": "eslint",
     "check-types": "tsc --noEmit",
     "check-types:dev": "tsc --noEmit --watch",

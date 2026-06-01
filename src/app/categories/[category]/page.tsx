@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CalendarClock } from "lucide-react";
 import { getArticlesByCategory } from "@/lib/articles";
+import { articlePath, categoryPath, createPageMetadata } from "@/lib/site";
 import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
@@ -15,10 +16,6 @@ function formatDate(date?: string): string {
   }).format(new Date(date));
 }
 
-function buildCategoryHref(category: string): string {
-  return `/category/${encodeURIComponent(category)}`;
-}
-
 export async function generateMetadata({
   params,
 }: {
@@ -27,13 +24,11 @@ export async function generateMetadata({
   const { category } = await params;
   const decodedCategory = decodeURIComponent(category);
 
-  return {
+  return createPageMetadata({
     title: `${decodedCategory} 分类文章`,
-    description: `查看分类 ${decodedCategory} 下的全部文章。`,
-    alternates: {
-      canonical: buildCategoryHref(decodedCategory),
-    },
-  };
+    description: `查看分类「${decodedCategory}」下的全部文章。`,
+    canonical: categoryPath(decodedCategory),
+  });
 }
 
 export default async function CategoryPage({
@@ -56,7 +51,7 @@ export default async function CategoryPage({
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Category</p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">{decodedCategory}</h1>
         </div>
-        <Link href="/blog" className="shrink-0 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100">
+        <Link href="/articles" className="shrink-0 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100">
           返回全部文章
         </Link>
       </header>
@@ -66,7 +61,7 @@ export default async function CategoryPage({
           <article key={article.slug} className="py-7 first:pt-0 last:pb-0">
             <h2 className="text-xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100">
               <Link
-                href={`/blog/${article.slug}`}
+                href={articlePath(article.slug)}
                 className="transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-green-400"
               >
                 {article.title}

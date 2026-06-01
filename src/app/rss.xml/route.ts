@@ -1,4 +1,5 @@
 import { getLatestArticles } from "@/lib/articles";
+import { articlePath, getSiteUrl } from "@/lib/site";
 
 function escapeXml(input: string): string {
   return input
@@ -10,12 +11,12 @@ function escapeXml(input: string): string {
 }
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = getSiteUrl();
   const articles = await getLatestArticles(50);
 
   const items = articles
     .map((article) => {
-      const link = `${siteUrl}/blog/${article.slug}`;
+      const link = `${siteUrl}${articlePath(article.slug)}`;
       const pubDate = article.publishedAt
         ? new Date(article.publishedAt).toUTCString()
         : new Date().toUTCString();

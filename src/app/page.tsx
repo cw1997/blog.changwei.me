@@ -1,7 +1,26 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CalendarClock, Rss } from "lucide-react";
 import { getAllCategories, getAllTags, getLatestArticles } from "@/lib/articles";
+import {
+  articlePath,
+  categoryPath,
+  createPageMetadata,
+  getSiteUrl,
+  siteName,
+  tagPath,
+} from "@/lib/site";
+import JsonLd from "@/components/json-ld";
 import SummaryImageStrip from "@/components/summary-image-strip";
+
+export const metadata: Metadata = {
+  ...createPageMetadata({
+    title: siteName,
+    description: "昌维的个人博客，阅读最新技术文章、分类与标签归档。",
+    canonical: "/",
+  }),
+  title: { absolute: siteName },
+};
 
 function formatDate(date?: string): string {
   if (!date) {
@@ -20,18 +39,24 @@ export default async function Home() {
     getAllTags(),
   ]);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: getSiteUrl(),
+    description: "昌维的个人博客，阅读最新技术文章、分类与标签归档。",
+  };
+
   return (
     <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-5 py-10 md:px-6 md:py-14">
+      <JsonLd data={jsonLd} />
       <section className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-5xl">
           昌维的博客
         </h1>
-        {/*<p className="mt-4 text-lg leading-relaxed text-zinc-500 dark:text-zinc-400">
-          内容来自 github.com/cw1997/blog 仓库的 articles 目录。使用 Next.js App Router 与增量更新机制，推送后即可刷新文章列表与详情内容。
-        </p>*/}
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
-            href="/blog"
+            href="/articles"
             className="inline-flex items-center gap-2 rounded-md bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
           >
             浏览全部文章
@@ -52,7 +77,7 @@ export default async function Home() {
           <div className="flex items-end justify-between border-b border-zinc-100 pb-3 dark:border-zinc-800">
             <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">最新文章</h2>
             <Link
-              href="/blog"
+              href="/articles"
               className="text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100"
             >
               查看全部
@@ -63,7 +88,7 @@ export default async function Home() {
               <article key={article.slug} className="py-6 first:pt-4 last:pb-0">
                 <h3 className="text-xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100">
                   <Link
-                    href={`/blog/${article.slug}`}
+                    href={articlePath(article.slug)}
                     className="transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-green-400"
                   >
                     {article.title}
@@ -91,7 +116,7 @@ export default async function Home() {
               {categories.map((category) => (
                 <li key={category}>
                   <Link
-                    href={`/category/${encodeURIComponent(category)}`}
+                    href={categoryPath(category)}
                     className="block rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-50 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
                   >
                     {category}
@@ -109,7 +134,7 @@ export default async function Home() {
               {tags.map((tag) => (
                 <Link
                   key={tag}
-                  href={`/tag/${encodeURIComponent(tag)}`}
+                  href={tagPath(tag)}
                   className="inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium text-zinc-500 transition hover:bg-zinc-50 hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-green-400"
                 >
                   #{tag}

@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Hash } from "lucide-react";
 import { getAllArticles, getAllTags } from "@/lib/articles";
+import { createPageMetadata, tagPath } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "标签列表",
   description: "按标签浏览文章。",
-  alternates: {
-    canonical: "/tag",
-  },
-};
+  canonical: "/tags",
+});
 
 export default async function TagListPage() {
   const [tags, articles] = await Promise.all([getAllTags(), getAllArticles()]);
@@ -39,7 +38,7 @@ export default async function TagListPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Tag</p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">标签列表</h1>
         </div>
-        <Link href="/blog" className="shrink-0 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100">
+        <Link href="/articles" className="shrink-0 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100">
           返回全部文章
         </Link>
       </header>
@@ -50,7 +49,7 @@ export default async function TagListPage() {
           return (
             <Link
               key={item.tag}
-              href={`/tag/${encodeURIComponent(item.tag)}`}
+              href={tagPath(item.tag)}
               className="group inline-flex items-baseline gap-2 rounded-md px-3 py-1.5 transition hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:bg-zinc-800"
             >
               <span

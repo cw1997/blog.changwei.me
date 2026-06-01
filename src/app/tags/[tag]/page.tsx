@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FolderOpen, Hash } from "lucide-react";
 import { getArticlesByTag, getArticlesByTagAndCategory } from "@/lib/articles";
+import { articlePath, createPageMetadata, tagPath } from "@/lib/site";
 import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
@@ -13,15 +14,6 @@ function formatDate(date?: string): string {
   return new Intl.DateTimeFormat("zh-CN", {
     dateStyle: "medium",
   }).format(new Date(date));
-}
-
-function buildTagHref(tag: string, category?: string): string {
-  if (!category) {
-    return `/tag/${encodeURIComponent(tag)}`;
-  }
-
-  const query = new URLSearchParams({ category });
-  return `/tag/${encodeURIComponent(tag)}?${query.toString()}`;
 }
 
 export async function generateMetadata({
@@ -35,15 +27,13 @@ export async function generateMetadata({
   const decodedTag = decodeURIComponent(tag);
   const selectedCategory = search.category?.trim();
 
-  return {
+  return createPageMetadata({
     title: `#${decodedTag} 标签文章`,
     description: selectedCategory
-      ? `查看标签 ${decodedTag} 下分类为 ${selectedCategory} 的文章。`
-      : `查看标签 ${decodedTag} 下的全部文章。`,
-    alternates: {
-      canonical: buildTagHref(decodedTag, selectedCategory),
-    },
-  };
+      ? `查看标签「${decodedTag}」下分类为「${selectedCategory}」的文章。`
+      : `查看标签「${decodedTag}」下的全部文章。`,
+    canonical: tagPath(decodedTag, selectedCategory),
+  });
 }
 
 export default async function TagPage({
@@ -75,7 +65,7 @@ export default async function TagPage({
             {decodedTag}
           </h1>
         </div>
-        <Link href="/blog" className="shrink-0 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100">
+        <Link href="/articles" className="shrink-0 text-sm font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100">
           返回全部文章
         </Link>
       </header>
@@ -88,7 +78,7 @@ export default async function TagPage({
           </h2>
           {selectedCategory ? (
             <Link
-              href={buildTagHref(decodedTag)}
+              href={tagPath(decodedTag)}
               className="text-xs font-medium text-zinc-500 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-zinc-100"
             >
               清除分类筛选
@@ -98,7 +88,7 @@ export default async function TagPage({
 
         <div className="mt-4 flex flex-wrap gap-1.5">
           <Link
-            href={buildTagHref(decodedTag)}
+            href={tagPath(decodedTag)}
             className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
               selectedCategory
                 ? "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
@@ -112,7 +102,7 @@ export default async function TagPage({
             return (
               <Link
                 key={category}
-                href={buildTagHref(decodedTag, category)}
+                href={tagPath(decodedTag, category)}
                 className={`inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
                   active
                     ? "bg-green-700 text-white dark:bg-green-600 dark:text-white"
@@ -138,7 +128,7 @@ export default async function TagPage({
           <article key={article.slug} className="py-7 first:pt-0 last:pb-0">
             <h2 className="text-xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100">
               <Link
-                href={`/blog/${article.slug}`}
+                href={articlePath(article.slug)}
                 className="transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:hover:text-green-400"
               >
                 {article.title}

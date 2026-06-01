@@ -4,6 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getArticleBySlug, getAllArticles } from "@/lib/articles";
+import {
+  absoluteUrl,
+  articlePath,
+  categoryPath,
+  createPageMetadata,
+  getSiteUrl,
+  siteName,
+  tagPath,
+} from "@/lib/site";
+import JsonLd from "@/components/json-ld";
 
 function formatDate(date?: string): string {
   if (!date) {
@@ -35,22 +45,22 @@ export async function generateMetadata({
     };
   }
 
-  return {
+  const canonical = articlePath(article.slug);
+
+  return createPageMetadata({
     title: article.title,
-    description: article.excerpt,
-    alternates: {
-      canonical: `/blog/${article.slug}`,
-    },
-    openGraph: {
-      title: article.title,
-      description: article.excerpt,
-      type: "article",
-      images: article.previewImage ? [{ url: article.previewImage, alt: `${article.title} 配图` }] : undefined,
-    },
-  };
+    description: article.excerpt || `${article.title} - ${siteName}`,
+    canonical,
+    openGraphType: "article",
+    publishedTime: article.publishedAt,
+    keywords: article.tags,
+    images: article.previewImage
+      ? [{ url: article.previewImage, alt: `${article.title} 配图` }]
+      : undefined,
+  });
 }
 
-export default async function BlogDetailPage({
+export default async function ArticleDetailPage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
@@ -62,8 +72,31 @@ export default async function BlogDetailPage({
     notFound();
   }
 
+  const canonical = articlePath(article.slug);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.publishedAt,
+    author: article.author
+      ? { "@type": "Person", name: article.author }
+      : { "@type": "Person", name: siteName },
+    image: article.previewImage ?? article.coverImage,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(canonical),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      url: getSiteUrl(),
+    },
+  };
+
   return (
     <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 py-10 md:px-6 md:py-14">
+      <JsonLd data={jsonLd} />
       <article className="w-full">
         <header className="mx-auto w-full max-w-[720px]">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Article</p>
@@ -86,7 +119,7 @@ export default async function BlogDetailPage({
             {article.categories.map((category) => (
               <Link
                 key={`${article.slug}-${category}`}
-                href={`/category/${encodeURIComponent(category)}`}
+                href={categoryPath(category)}
                 className="inline-flex items-center gap-1 rounded-md bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:bg-zinc-800 dark:text-zinc-400"
               >
                 <FolderOpen className="h-3 w-3" aria-hidden="true" />
@@ -96,7 +129,7 @@ export default async function BlogDetailPage({
             {article.tags.map((tag) => (
               <Link
                 key={`${article.slug}-${tag}`}
-                href={`/tag/${encodeURIComponent(tag)}`}
+                href={tagPath(tag)}
                 className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-green-400 dark:hover:bg-green-950/50"
               >
                 <Tag className="h-3 w-3" aria-hidden="true" />
