@@ -1,5 +1,25 @@
+import { existsSync, readFileSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+
+// Load .env file if it exists (local dev), so Vercel doesn't need a committed .env
+if (existsSync(".env")) {
+  const envContent = readFileSync(".env", "utf-8");
+  for (const line of envContent.split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    let value = trimmed.slice(eqIdx + 1).trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    if (!process.env[key]) {
+      process.env[key] = value;
+    }
+  }
+}
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER ?? "cw1997";
 const GITHUB_REPO = process.env.GITHUB_REPO ?? "blog";
