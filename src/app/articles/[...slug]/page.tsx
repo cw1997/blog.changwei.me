@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { CalendarClock, FolderOpen, Tag, UserRound } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import ArticleContentEnhancer from "@/components/article-content-enhancer";
+import ArticleMarkdown from "@/components/article-markdown";
 import { getArticleBySlug, getAllArticles } from "@/lib/articles";
 import {
   absoluteUrl,
@@ -72,6 +73,7 @@ export default async function ArticleDetailPage({
     notFound();
   }
 
+  const coverCaption = `${article.title} 封面图`;
   const canonical = articlePath(article.slug);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -98,7 +100,7 @@ export default async function ArticleDetailPage({
     <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 py-10 md:px-6 md:py-14">
       <JsonLd data={jsonLd} />
       <article className="w-full">
-        <header className="mx-auto w-full max-w-[720px]">
+        <header className="w-full">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Article</p>
           <h1 className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[2.6rem]">{article.title}</h1>
 
@@ -139,29 +141,26 @@ export default async function ArticleDetailPage({
           </nav>
         </header>
 
-        <div className="mx-auto mt-8 w-full max-w-[720px]">
-          {article.coverImage ? (
-            <div className="-mx-5 md:-mx-10">
-              <figure className="md-image-scroll">
-                <Image
-                  src={article.coverImage}
-                  alt={`${article.title} 封面图`}
-                  width={1600}
-                  height={900}
-                  unoptimized
-                  className="h-auto w-full"
-                />
+        <ArticleContentEnhancer>
+          <div className="mt-8 w-full">
+            {article.coverImage ? (
+              <figure className="md-image-block md-image-block-cover">
+                <div className="md-image-scroll" data-md-image-scroll>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={article.coverImage}
+                    alt={coverCaption}
+                    data-md-image-zoom
+                    className="cursor-zoom-in"
+                  />
+                </div>
+                <figcaption className="md-image-caption">{coverCaption}</figcaption>
               </figure>
-            </div>
-          ) : null}
+            ) : null}
 
-          <section
-            className="markdown-body mt-10"
-            dangerouslySetInnerHTML={{
-              __html: article.htmlContent,
-            }}
-          />
-        </div>
+            <ArticleMarkdown html={article.htmlContent} className="markdown-body mt-10" />
+          </div>
+        </ArticleContentEnhancer>
       </article>
     </main>
   );

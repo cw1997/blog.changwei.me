@@ -243,15 +243,24 @@ export function resolveMarkdownAssetUrls(markdown: string, rawArticleDirPath: st
   });
 }
 
-export function wrapImagesWithScrollContainer(html: string): string {
-  return html.replace(/<img\s+([^>]*?)\/?>(?!\s*<\/span>)/g, (_match, attributes: string) => {
-    const hasAlt = /\balt\s*=/.test(attributes);
-    const safeAttributes = hasAlt
-      ? attributes
-      : `${attributes} alt="${escapeHtmlAttribute("image")}"`;
+function extractAltFromAttributes(attributes: string): string {
+  const match = attributes.match(/\balt\s*=\s*"([^"]*)"/);
+  return match?.[1]?.trim() || "image";
+}
 
-    return `<span class="md-image-scroll" role="group" aria-label="文章图片（可横向滚动）"><img ${safeAttributes}></span>`;
-  });
+export function wrapImagesWithScrollContainer(html: string): string {
+  return html.replace(
+    /<img\s+((?![^>]*\bdata-md-image-zoom\b)[^>]*?)\/?>/g,
+    (_match, attributes: string) => {
+      const hasAlt = /\balt\s*=/.test(attributes);
+      const safeAttributes = hasAlt
+        ? attributes
+        : `${attributes} alt="${escapeHtmlAttribute("image")}"`;
+      const caption = escapeHtmlAttribute(extractAltFromAttributes(safeAttributes));
+
+      return `<figure class="md-image-block"><div class="md-image-scroll" data-md-image-scroll role="group" aria-label="文章图片（可横向滚动）"><img ${safeAttributes} data-md-image-zoom class="cursor-zoom-in"></div><figcaption class="md-image-caption">${caption}</figcaption></figure>`;
+    },
+  );
 }
 
 export async function markdownToHtml(markdown: string): Promise<string> {

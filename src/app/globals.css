@@ -61,12 +61,12 @@ button {
 .markdown-body {
   color: var(--foreground);
   line-height: 1.8;
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 
 @media (min-width: 768px) {
   .markdown-body {
-    font-size: 1.2rem;
+    font-size: 1.0625rem;
     line-height: 1.75;
   }
 }
@@ -84,15 +84,15 @@ button {
 }
 
 .markdown-body h1 {
-  font-size: 2rem;
+  font-size: 1.85rem;
 }
 
 .markdown-body h2 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
 }
 
 .markdown-body h3 {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
 }
 
 .markdown-body p,
@@ -159,6 +159,26 @@ button {
   display: block;
   margin: 0;
   height: auto;
+  max-width: 100%;
+}
+
+.md-image-block {
+  width: 100%;
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+.md-image-block-cover .md-image-scroll {
+  display: flex;
+  justify-content: center;
+}
+
+.md-image-block-cover .md-image-scroll img {
+  max-height: 640px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-inline: auto;
 }
 
 .md-image-scroll {
@@ -166,16 +186,31 @@ button {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
-  border-radius: 0.4rem;
-  border: 1px solid var(--border);
-  margin: 1.5rem 0;
-  background: var(--surface);
+  max-width: 100%;
 }
 
 .md-image-scroll img {
-  max-width: none;
+  max-width: 100%;
   width: auto;
-  min-width: min(100%, 280px);
+  height: auto;
+  display: block;
+  margin-inline: auto;
+}
+
+.md-image-caption {
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.cursor-zoom-in {
+  cursor: zoom-in;
+}
+
+.article-image-lightbox::backdrop {
+  background: rgb(0 0 0 / 0.8);
 }
 
 .fade-in-up {
@@ -215,18 +250,18 @@ button {
 
 @media (max-width: 768px) {
   .markdown-body h1 {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
   }
 
   .markdown-body h2 {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 
-  .md-image-scroll {
-    margin: 0.8rem 0;
+  .md-image-block {
+    margin-block: 0.8rem;
   }
 
   .markdown-body {
-    font-size: 1rem;
+    font-size: 0.9375rem;
   }
 }
