@@ -96,7 +96,7 @@ function toRemoteUrl(remotePath: string): string {
 }
 
 async function fetchLatestCommit(): Promise<void> {
-  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits/${GITHUB_BRANCH}?per_page=1`;
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits?sha=${GITHUB_BRANCH}&per_page=1`;
   const [commit] = await fetchJson<GitHubCommitInfo[]>(url);
   const shortSha = commit.sha.slice(0, 7);
   const message = commit.commit.message.split("\n")[0];
