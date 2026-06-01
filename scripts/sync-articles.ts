@@ -32,6 +32,14 @@ interface GitHubTreeItem {
   type: string;
   path: string;
 }
+interface GitHubCommitInfo {
+  sha: string;
+  commit: {
+    author: { name: string; date: string };
+    message: string;
+  };
+  author: { login: string } | null;
+}
 
 function getGitHubHeaders(): Record<string, string> {
   const headers: Record<string, string> = {
@@ -87,6 +95,16 @@ function toRemoteUrl(remotePath: string): string {
   return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${encodedPath}`;
 }
 
+async function fetchLatestCommit(): Promise<void> {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits/${GITHUB_BRANCH}?per_page=1`;
+  const [commit] = await fetchJson<GitHubCommitInfo[]>(url);
+  const shortSha = commit.sha.slice(0, 7);
+  const message = commit.commit.message.split("\n")[0];
+  const author = commit.author?.login ?? commit.commit.author.name;
+  const date = commit.commit.author.date;
+  console.log(`Latest commit: ${shortSha} by ${author} on ${date} - ${message}`);
+}
+
 async function main(): Promise<void> {
   await rm(MIRROR_ROOT, { recursive: true, force: true });
   await mkdir(MIRROR_ROOT, { recursive: true });
@@ -118,6 +136,8 @@ async function main(): Promise<void> {
   console.log(
     `Synced ${files.length} article files to ${MIRROR_ROOT} from GitHub`,
   );
+
+  await fetchLatestCommit();
 }
 
 main().catch((error) => {
