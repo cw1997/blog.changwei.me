@@ -36,18 +36,32 @@ pnpm dev
 
 ## Environment Variables
 
-Set these in your deployment platform (or `.env.local`):
+Set these in your deployment platform (or in a local `.env.local` file).
+
+For local development you can copy the example and fill values:
 
 ```bash
-# Optional. Helps avoid GitHub API rate limits.
-GITHUB_TOKEN=
+cp .env.example .env.local
+# then edit .env.local and add real values
+```
+
+Example `.env.example` fields:
+
+```bash
+# Optional. Helps avoid GitHub API rate limits for private repositories.
+GITHUB_TOKEN=your_personal_access_token_here
 
 # Required for triggering on-demand revalidation from GitHub webhook.
 REVALIDATE_SECRET=replace-with-a-random-string
 
-# Used by RSS links.
+# Used by RSS links. Example: https://your-domain.example
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 ```
+
+Notes:
+
+- `GITHUB_TOKEN` should be a Personal Access Token (PAT) with `repo` access for private repositories. Keep this secret and prefer using deployment platform secret stores.
+- Next.js automatically loads `.env.local` in development; do not commit `.env.local` to source control.
 
 ## GitHub Webhook Setup
 
