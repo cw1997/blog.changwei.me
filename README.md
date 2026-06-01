@@ -56,6 +56,15 @@ REVALIDATE_SECRET=replace-with-a-random-string
 
 # Used by RSS links. Example: https://your-domain.example
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
+
+If your content repository is not `cw1997/blog` you can override the coordinates:
+
+```bash
+# Optional: override the owner/repo/branch used to fetch articles
+GITHUB_OWNER=your_github_username_or_org
+GITHUB_REPO=your_content_repo_name
+GITHUB_BRANCH=main
+```
 ```
 
 Notes:

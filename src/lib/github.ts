@@ -1,9 +1,10 @@
 import type { GitTreeResponse } from "@/lib/types";
 
-const GITHUB_OWNER = "cw1997";
-const GITHUB_REPO = "blog";
-const GITHUB_BRANCH = "main";
-const ARTICLES_ROOT = "articles/";
+// Allow overriding repository coordinates via environment variables for flexibility
+const GITHUB_OWNER = process.env.GITHUB_OWNER ?? "cw1997";
+const GITHUB_REPO = process.env.GITHUB_REPO ?? "blog";
+const GITHUB_BRANCH = process.env.GITHUB_BRANCH ?? "main";
+const ARTICLES_ROOT = process.env.ARTICLES_ROOT ?? "articles/";
 
 function getGitHubHeaders(): HeadersInit {
   const headers: HeadersInit = {
