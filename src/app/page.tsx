@@ -24,11 +24,11 @@ export default async function Home() {
     <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-5 py-10 md:px-6 md:py-14">
       <section className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-5xl">
-          自动同步 GitHub 文章的个人博客
+          昌维的博客
         </h1>
-        <p className="mt-4 text-lg leading-relaxed text-zinc-500 dark:text-zinc-400">
+        {/*<p className="mt-4 text-lg leading-relaxed text-zinc-500 dark:text-zinc-400">
           内容来自 github.com/cw1997/blog 仓库的 articles 目录。使用 Next.js App Router 与增量更新机制，推送后即可刷新文章列表与详情内容。
-        </p>
+        </p>*/}
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/blog"
