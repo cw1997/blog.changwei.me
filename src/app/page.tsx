@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CalendarClock, Rss } from "lucide-react";
 import { getAllCategories, getAllTags, getLatestArticles } from "@/lib/articles";
-import SummaryImageStrip from "@/app/components/summary-image-strip";
+import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
   if (!date) {

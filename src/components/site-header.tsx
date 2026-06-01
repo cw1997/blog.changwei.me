@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { BookOpenText, ExternalLink, Menu, Rss, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import ThemeToggle from "@/app/components/theme-toggle";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-30 border-b border-zinc-100 bg-white/95 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90">
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-5 py-3.5 md:px-6">
         <Link
-          href="/"
+          href="/public"
           className="text-base font-bold tracking-tight text-zinc-900 transition hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-100 dark:hover:text-green-400 md:text-lg"
           aria-label="返回首页"
           onClick={closeMenu}

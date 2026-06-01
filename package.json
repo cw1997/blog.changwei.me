@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "check-types": "tsc --noEmit",
+    "check-types:dev": "tsc --noEmit --watch",
     "upgrade": "pnpx npm-check-updates -i"
   },
   "dependencies": {

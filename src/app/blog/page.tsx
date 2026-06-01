@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CalendarClock, FolderOpen, Image as ImageIcon, SlidersHorizontal, Tag } from "lucide-react";
 import { getAllArticles, getAllCategories, getAllTags } from "@/lib/articles";
-import SummaryImageStrip from "@/app/components/summary-image-strip";
+import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
   if (!date) {
