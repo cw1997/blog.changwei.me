@@ -14,7 +14,10 @@ type ScrollState = {
 
 export default function ArticleContentEnhancer({ children }: { children: ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const [lightbox, setLightbox] = useState<{
+    images: { src: string; alt: string }[];
+    index: number;
+  } | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -104,7 +107,13 @@ export default function ArticleContentEnhancer({ children }: { children: ReactNo
           }
         }
 
-        setLightbox({ src: img.currentSrc || img.src, alt: img.alt || "" });
+        const allImages = container.querySelectorAll<HTMLImageElement>("[data-md-image-zoom]");
+        const images = Array.from(allImages).map((element) => ({
+          src: element.currentSrc || element.src,
+          alt: element.alt || "",
+        }));
+        const activeIndex = Math.max(0, Array.from(allImages).indexOf(img));
+        setLightbox({ images, index: activeIndex });
       };
 
       img.addEventListener("click", onClick);
@@ -142,8 +151,8 @@ export default function ArticleContentEnhancer({ children }: { children: ReactNo
     <>
       <div ref={containerRef}>{children}</div>
       <ArticleImageLightbox
-        src={lightbox?.src ?? ""}
-        alt={lightbox?.alt ?? ""}
+        images={lightbox?.images ?? []}
+        index={lightbox?.index ?? 0}
         open={lightbox !== null}
         onClose={() => setLightbox(null)}
       />

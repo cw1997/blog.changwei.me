@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FolderOpen, Hash } from "lucide-react";
 import { getArticlesByTag, getArticlesByTagAndCategory } from "@/lib/articles";
-import { articlePath, createPageMetadata, tagPath } from "@/lib/site";
+import { articlePath, createPageMetadata, languageLabel, tagPath } from "@/lib/site";
 import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
@@ -138,7 +138,14 @@ export default async function TagPage({
               {article.excerpt || "暂无摘要"}
             </p>
             <SummaryImageStrip images={article.contentImages} title={article.title} />
-            <div className="mt-3 text-xs text-zinc-400 dark:text-zinc-500">{formatDate(article.publishedAt)}</div>
+            <div className="mt-3 inline-flex flex-wrap items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500">
+              {formatDate(article.publishedAt)}
+              {languageLabel(article.language) ? (
+                <span className="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                  {languageLabel(article.language)}
+                </span>
+              ) : null}
+            </div>
           </article>
         ))}
       </section>

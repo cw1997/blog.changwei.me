@@ -72,7 +72,8 @@ export default function SiteHeader() {
           aria-label="返回首页"
           onClick={closeMenu}
         >
-          Chang Wei Blog
+          <span className="text-green-700">Chang Wei Blog</span>
+          <span className="text-zinc-900 ml-2 pl-2 border-l-[2px] border-zinc-300 dark:border-zinc-800 dark:text-zinc-100">昌维的博客</span>
         </Link>
 
         <div className="flex items-center gap-1">

@@ -209,10 +209,6 @@ button {
   cursor: zoom-in;
 }
 
-.article-image-lightbox::backdrop {
-  background: rgb(0 0 0 / 0.8);
-}
-
 .fade-in-up {
   animation: fadeInUp 420ms ease-out both;
 }

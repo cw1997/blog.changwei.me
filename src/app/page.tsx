@@ -7,6 +7,7 @@ import {
   categoryPath,
   createPageMetadata,
   getSiteUrl,
+  languageLabel,
   siteName,
   tagPath,
 } from "@/lib/site";
@@ -50,7 +51,7 @@ export default async function Home() {
   return (
     <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-5 py-10 md:px-6 md:py-14">
       <JsonLd data={jsonLd} />
-      <section className="max-w-2xl">
+      {/* <section className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-5xl">
           昌维的博客
         </h1>
@@ -70,7 +71,7 @@ export default async function Home() {
             订阅 RSS
           </Link>
         </div>
-      </section>
+      </section> */}
 
       <div className="grid gap-14 md:grid-cols-[1.6fr_1fr]">
         <section>
@@ -98,9 +99,14 @@ export default async function Home() {
                   {article.excerpt || "暂无摘要"}
                 </p>
                 <SummaryImageStrip images={article.contentImages} title={article.title} />
-                <div className="mt-3 inline-flex items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-500">
+                <div className="mt-3 inline-flex flex-wrap items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-500">
                   <CalendarClock className="h-3.5 w-3.5" aria-hidden="true" />
                   {formatDate(article.publishedAt)}
+                  {languageLabel(article.language) ? (
+                    <span className="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                      {languageLabel(article.language)}
+                    </span>
+                  ) : null}
                 </div>
               </article>
             ))}

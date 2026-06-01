@@ -7,6 +7,7 @@ import {
   categoryPath,
   createPageMetadata,
   articlePath,
+  languageLabel,
   tagPath,
 } from "@/lib/site";
 import SummaryImageStrip from "@/components/summary-image-strip";
@@ -220,6 +221,11 @@ export default async function ArticlesPage({
                 {formatDate(article.publishedAt)}
               </span>
               {article.author ? <span>{article.author}</span> : null}
+              {languageLabel(article.language) ? (
+                <span className="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                  {languageLabel(article.language)}
+                </span>
+              ) : null}
               {article.previewImage ? (
                 <span className="inline-flex items-center gap-1.5">
                   <ImageIcon className="h-3.5 w-3.5" aria-hidden="true" />

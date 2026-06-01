@@ -11,6 +11,7 @@ import {
   categoryPath,
   createPageMetadata,
   getSiteUrl,
+  languageLabel,
   siteName,
   tagPath,
 } from "@/lib/site";
@@ -113,6 +114,11 @@ export default async function ArticleDetailPage({
               <span className="inline-flex items-center gap-1.5">
                 <UserRound className="h-4 w-4" aria-hidden="true" />
                 {article.author}
+              </span>
+            ) : null}
+            {languageLabel(article.language) ? (
+              <span className="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                {languageLabel(article.language)}
               </span>
             ) : null}
           </div>

@@ -6,6 +6,7 @@ export interface ArticleFrontmatter {
   category?: string | string[];
   tag?: string | string[];
   cover_image?: string;
+  language?: string;
 }
 
 export interface Article {
@@ -24,6 +25,7 @@ export interface Article {
   previewImage?: string;
   contentImages: string[];
   publishedAt?: string;
+  language?: string;
 }
 
 export interface GitTreeItem {

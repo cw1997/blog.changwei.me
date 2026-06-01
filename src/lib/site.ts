@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
 
+export const LANGUAGE_LABELS: Record<string, string> = {
+  "zh-CN": "中文",
+  en: "EN",
+  ja: "日本語",
+  "zh-TW": "中文",
+};
+
+export function languageLabel(language?: string): string | undefined {
+  return language ? LANGUAGE_LABELS[language] ?? language : undefined;
+}
+
 export const siteName = "昌维的博客";
 export const siteDescription = "个人博客，文章同步自 GitHub 仓库 cw1997/blog。";
 export const defaultLocale = "zh_CN";

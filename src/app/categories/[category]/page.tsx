@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CalendarClock } from "lucide-react";
 import { getArticlesByCategory } from "@/lib/articles";
-import { articlePath, categoryPath, createPageMetadata } from "@/lib/site";
+import { articlePath, categoryPath, createPageMetadata, languageLabel } from "@/lib/site";
 import SummaryImageStrip from "@/components/summary-image-strip";
 
 function formatDate(date?: string): string {
@@ -71,9 +71,14 @@ export default async function CategoryPage({
               {article.excerpt || "暂无摘要"}
             </p>
             <SummaryImageStrip images={article.contentImages} title={article.title} />
-            <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500">
+            <div className="mt-3 inline-flex flex-wrap items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500">
               <CalendarClock className="h-3.5 w-3.5" aria-hidden="true" />
               {formatDate(article.publishedAt)}
+              {languageLabel(article.language) ? (
+                <span className="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
+                  {languageLabel(article.language)}
+                </span>
+              ) : null}
             </div>
           </article>
         ))}

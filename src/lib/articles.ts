@@ -160,6 +160,7 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
         coverImage,
         previewImage,
         contentImages,
+        language: parsed.frontmatter.language,
         publishedAt: toIsoDate(parsed.frontmatter.date),
       };
     }),
