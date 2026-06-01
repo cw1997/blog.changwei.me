@@ -50,6 +50,13 @@ async function githubFetchText(url: string, tags: string[]): Promise<string> {
   return response.text();
 }
 
+export function getLocalContentUrl(assetPath: string): string {
+  const relativePath = assetPath.startsWith(ARTICLES_ROOT)
+    ? assetPath.slice(ARTICLES_ROOT.length)
+    : assetPath;
+  return `/article-assets/${relativePath}`;
+}
+
 export function getRawContentUrl(assetPath: string): string {
   const relativePath = assetPath.startsWith(ARTICLES_ROOT) ? assetPath.slice(ARTICLES_ROOT.length) : assetPath;
 

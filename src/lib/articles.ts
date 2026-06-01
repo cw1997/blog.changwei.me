@@ -9,7 +9,7 @@ import {
   resolveMarkdownAssetUrls,
   wrapImagesWithScrollContainer,
 } from "@/lib/markdown";
-import { getArticlesRootPath, getRawContentUrl, getRemoteMarkdown, getRepositoryTree } from "@/lib/github";
+import { getArticlesRootPath, getLocalContentUrl, getRemoteMarkdown, getRepositoryTree } from "@/lib/github";
 import type { Article } from "@/lib/types";
 
 function normalizeCategory(category: string): string {
@@ -78,7 +78,9 @@ function resolveArticleAssetUrl(assetPath: string, articleDirPath: string): stri
     return pathValue;
   }
 
-  return new URL(pathValue, `${getRawContentUrl(articleDirPath)}/`).toString();
+  const baseUrl = articleDirPath.endsWith("/") ? articleDirPath : `${articleDirPath}/`;
+  const absoluteUrl = new URL(pathValue, `http://localhost${baseUrl}`);
+  return `${absoluteUrl.pathname}${absoluteUrl.search}${absoluteUrl.hash}`;
 }
 
 function filterArticles(
@@ -121,7 +123,7 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
 
       const slug = slugSegments.join("/");
       const articleDir = markdownPath.slice(0, markdownPath.lastIndexOf("/"));
-      const rawArticleDirUrl = getRawContentUrl(articleDir);
+      const rawArticleDirUrl = getLocalContentUrl(articleDir);
       const sourceMarkdown = await getRemoteMarkdown(markdownPath);
       const parsed = parseTrailingFrontmatter(sourceMarkdown);
 

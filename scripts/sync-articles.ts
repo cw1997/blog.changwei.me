@@ -6,6 +6,8 @@ const GITHUB_REPO = process.env.GITHUB_REPO ?? "blog";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH ?? "main";
 const ARTICLES_ROOT = process.env.ARTICLES_ROOT ?? "articles/";
 const MIRROR_ROOT = process.env.ARTICLES_MIRROR_ROOT ?? "./tmp";
+const PUBLIC_ASSETS_DIR = process.env.PUBLIC_ASSETS_DIR ?? "public/article-assets";
+const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".avif"]);
 interface GitHubTreeItem {
   type: string;
   path: string;
@@ -68,6 +70,7 @@ function toRemoteUrl(remotePath: string): string {
 async function main(): Promise<void> {
   await rm(MIRROR_ROOT, { recursive: true, force: true });
   await mkdir(MIRROR_ROOT, { recursive: true });
+  await rm(PUBLIC_ASSETS_DIR, { recursive: true, force: true });
 
   const treeUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
   const tree = await fetchJson<{ tree: GitHubTreeItem[] }>(treeUrl);
@@ -80,6 +83,16 @@ async function main(): Promise<void> {
     await mkdir(path.dirname(destination), { recursive: true });
     const content = await fetchBlob(toRemoteUrl(file.path));
     await writeFile(destination, content);
+
+    const ext = path.extname(file.path).toLowerCase();
+    if (IMAGE_EXTENSIONS.has(ext)) {
+      const relativePath = file.path.startsWith(ARTICLES_ROOT)
+        ? file.path.slice(ARTICLES_ROOT.length)
+        : file.path;
+      const publicDest = path.join(PUBLIC_ASSETS_DIR, relativePath);
+      await mkdir(path.dirname(publicDest), { recursive: true });
+      await writeFile(publicDest, content);
+    }
   }
 
   console.log(
