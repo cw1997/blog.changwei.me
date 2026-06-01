@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "pnpm sync:articles",
+    "prebuild": "pnpm run sync:articles",
     "dev": "next dev -p 31006",
     "build": "next build",
     "start": "next start",
