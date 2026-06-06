@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 const IMAGE_PATH = /^\/articles\/(.+\.(?:png|jpe?g|gif|webp|svg))$/i;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const imageMatch = pathname.match(IMAGE_PATH);

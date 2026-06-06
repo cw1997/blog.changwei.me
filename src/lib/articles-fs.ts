@@ -1,11 +1,13 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-export const ARTICLES_DIR = path.resolve(/* turbopackIgnore: true */ process.cwd(), process.env.ARTICLES_DIR ?? "articles");
+const ARTICLES_SUBDIR = process.env.ARTICLES_DIR ?? "articles";
+
+export const ARTICLES_DIR = path.join(/* turbopackIgnore: true */ process.cwd(), ARTICLES_SUBDIR);
 
 function resolveSafePath(relativePath: string): string {
   const normalized = relativePath.replace(/\\/g, "/");
-  const absolutePath = path.resolve(ARTICLES_DIR, normalized);
+  const absolutePath = path.join(/* turbopackIgnore: true */ process.cwd(), ARTICLES_SUBDIR, normalized);
 
   if (!absolutePath.startsWith(ARTICLES_DIR + path.sep) && absolutePath !== ARTICLES_DIR) {
     throw new Error(`Path traversal blocked: ${relativePath}`);
