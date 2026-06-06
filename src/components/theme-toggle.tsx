@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
+interface ThemeToggleProps {
+  // no props
+}
+
 function getSystemTheme(): Theme {
   if (typeof window === "undefined") {
     return "light";
@@ -17,7 +21,7 @@ function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
 }
 
-export default function ThemeToggle() {
+export function ThemeToggle(props: Readonly<ThemeToggleProps>) {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === "undefined") {
       return "light";

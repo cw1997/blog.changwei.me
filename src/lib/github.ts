@@ -57,16 +57,6 @@ export function getLocalContentUrl(assetPath: string): string {
   return `/article-assets/${relativePath}`;
 }
 
-export function getRawContentUrl(assetPath: string): string {
-  const relativePath = assetPath.startsWith(ARTICLES_ROOT) ? assetPath.slice(ARTICLES_ROOT.length) : assetPath;
-
-  return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${relativePath
-    .split("/")
-    .filter(Boolean)
-    .map((segment) => encodeURIComponent(segment))
-    .join("/")}`;
-}
-
 export function getArticlesRootPath(): string {
   return ARTICLES_ROOT;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import ArticleImageLightbox from "@/components/article-image-lightbox";
+import { ArticleImageLightbox } from "@/components/article-image-lightbox";
 
 const DRAG_THRESHOLD = 5;
 
@@ -12,7 +12,12 @@ type ScrollState = {
   scrollLeft: number;
 };
 
-export default function ArticleContentEnhancer({ children }: { children: ReactNode }) {
+interface ArticleContentEnhancerProps {
+  children: ReactNode;
+}
+
+export function ArticleContentEnhancer(props: Readonly<ArticleContentEnhancerProps>) {
+  const { children } = props;
   const containerRef = useRef<HTMLDivElement>(null);
   const [lightbox, setLightbox] = useState<{
     images: { src: string; alt: string }[];

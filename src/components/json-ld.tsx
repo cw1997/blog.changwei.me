@@ -1,8 +1,9 @@
-type JsonLdProps = {
+interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[];
-};
+}
 
-export default function JsonLd({ data }: JsonLdProps) {
+export function JsonLd(props: Readonly<JsonLdProps>) {
+  const { data } = props;
   return (
     <script
       type="application/ld+json"

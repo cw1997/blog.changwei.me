@@ -1,50 +1,22 @@
 import type { Metadata } from "next";
-import { CalendarClock, FolderOpen, Tag, UserRound } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import ArticleContentEnhancer from "@/components/article-content-enhancer";
-import ArticleMarkdown from "@/components/article-markdown";
 import { getArticleBySlug, getAllArticles } from "@/lib/articles";
-import {
-  absoluteUrl,
-  articlePath,
-  categoryPath,
-  createPageMetadata,
-  getSiteUrl,
-  languageLabel,
-  siteName,
-  tagPath,
-} from "@/lib/site";
-import JsonLd from "@/components/json-ld";
-
-function formatDate(date?: string): string {
-  if (!date) {
-    return "";
-  }
-
-  return new Intl.DateTimeFormat("zh-CN", {
-    dateStyle: "full",
-    timeStyle: "short",
-  }).format(new Date(date));
-}
+import { absoluteUrl, articlePath, createPageMetadata, getSiteUrl, siteName } from "@/lib/site";
+import type { PageProps } from "@/types/page";
+import { ArticleDetailPage } from "./ArticleDetailPage";
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();
   return articles.map((article) => ({ slug: article.slugSegments }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata(props: PageProps<"/articles/[...slug]">): Promise<Metadata> {
+  const params = await props.params!;
+  const slug = params.slug as string[];
   const article = await getArticleBySlug(slug);
 
   if (!article) {
-    return {
-      title: "文章不存在",
-    };
+    return { title: "文章不存在" };
   }
 
   const canonical = articlePath(article.slug);
@@ -62,12 +34,9 @@ export async function generateMetadata({
   });
 }
 
-export default async function ArticleDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
-  const { slug } = await params;
+export default async function ArticleDetailPageServer(props: PageProps<"/articles/[...slug]">) {
+  const params = await props.params!;
+  const slug = params.slug as string[];
   const article = await getArticleBySlug(slug);
 
   if (!article) {
@@ -75,99 +44,6 @@ export default async function ArticleDetailPage({
   }
 
   const coverCaption = `${article.title} 封面图`;
-  const canonical = articlePath(article.slug);
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: article.title,
-    description: article.excerpt,
-    datePublished: article.publishedAt,
-    author: article.author
-      ? { "@type": "Person", name: article.author }
-      : { "@type": "Person", name: siteName },
-    image: article.previewImage ?? article.coverImage,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": absoluteUrl(canonical),
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteName,
-      url: getSiteUrl(),
-    },
-  };
 
-  return (
-    <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 py-10 md:px-6 md:py-14">
-      <JsonLd data={jsonLd} />
-      <article className="w-full">
-        <header className="w-full">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Article</p>
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[2.6rem]">{article.title}</h1>
-
-          <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarClock className="h-4 w-4" aria-hidden="true" />
-              {formatDate(article.publishedAt)}
-            </span>
-            {article.author ? (
-              <span className="inline-flex items-center gap-1.5">
-                <UserRound className="h-4 w-4" aria-hidden="true" />
-                {article.author}
-              </span>
-            ) : null}
-            {languageLabel(article.language) ? (
-              <span className="inline-flex items-center rounded bg-blue-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-950 dark:text-blue-400">
-                {languageLabel(article.language)}
-              </span>
-            ) : null}
-          </div>
-
-          <nav className="mt-4 flex flex-wrap gap-1.5" aria-label="文章分类与标签">
-            {article.categories.map((category) => (
-              <Link
-                key={`${article.slug}-${category}`}
-                href={categoryPath(category)}
-                className="inline-flex items-center gap-1 rounded-md bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:bg-zinc-800 dark:text-zinc-400"
-              >
-                <FolderOpen className="h-3 w-3" aria-hidden="true" />
-                {category}
-              </Link>
-            ))}
-            {article.tags.map((tag) => (
-              <Link
-                key={`${article.slug}-${tag}`}
-                href={tagPath(tag)}
-                className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-green-400 dark:hover:bg-green-950/50"
-              >
-                <Tag className="h-3 w-3" aria-hidden="true" />
-                {tag}
-              </Link>
-            ))}
-          </nav>
-        </header>
-
-        <ArticleContentEnhancer>
-          <div className="mt-8 w-full">
-            {article.coverImage ? (
-              <figure className="md-image-block md-image-block-cover">
-                <div className="md-image-scroll" data-md-image-scroll>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={article.coverImage}
-                    alt={coverCaption}
-                    data-md-image-zoom
-                    className="cursor-zoom-in"
-                  />
-                </div>
-                <figcaption className="md-image-caption">{coverCaption}</figcaption>
-              </figure>
-            ) : null}
-
-            <ArticleMarkdown html={article.htmlContent} className="markdown-body mt-10" />
-          </div>
-        </ArticleContentEnhancer>
-      </article>
-    </main>
-  );
+  return <ArticleDetailPage article={article} coverCaption={coverCaption} />;
 }

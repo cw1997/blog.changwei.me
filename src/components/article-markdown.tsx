@@ -1,11 +1,12 @@
 "use client";
 
-type ArticleMarkdownProps = {
+interface ArticleMarkdownProps {
   html: string;
   className?: string;
-};
+}
 
-export default function ArticleMarkdown({ html, className }: ArticleMarkdownProps) {
+export function ArticleMarkdown(props: Readonly<ArticleMarkdownProps>) {
+  const { html, className } = props;
   return (
     <section
       className={className ?? "markdown-body"}

@@ -23,12 +23,12 @@ export type ArticleImageItem = {
   alt: string;
 };
 
-type ArticleImageLightboxProps = {
+interface ArticleImageLightboxProps {
   images: ArticleImageItem[];
   index: number;
   open: boolean;
   onClose: () => void;
-};
+}
 
 function inferDownloadFilename(src: string, alt: string): string {
   if (alt.trim()) {
@@ -93,12 +93,8 @@ function ToolbarIconButton({
   );
 }
 
-export default function ArticleImageLightbox({
-  images,
-  index,
-  open,
-  onClose,
-}: ArticleImageLightboxProps) {
+export function ArticleImageLightbox(props: Readonly<ArticleImageLightboxProps>) {
+  const { images, index, open, onClose } = props;
   const [activeIndex, setActiveIndex] = useState(index);
   const [flipX, setFlipX] = useState(1);
   const [flipY, setFlipY] = useState(1);
@@ -236,7 +232,6 @@ export default function ArticleImageLightbox({
       maskClosable
       photoClosable={false}
       pullClosable
-      bannerVisible
       loop={false}
       maskOpacity={0.92}
       toolbarRender={renderToolbar}

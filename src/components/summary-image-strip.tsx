@@ -1,13 +1,15 @@
 import Image from "next/image";
 
-type SummaryImageStripProps = {
+interface SummaryImageStripProps {
   images: string[];
   title: string;
-};
+}
 
 const MAX_SLOTS = 5;
 
-export default function SummaryImageStrip({ images, title }: SummaryImageStripProps) {
+export function SummaryImageStrip(props: Readonly<SummaryImageStripProps>) {
+  const { images, title } = props;
+
   if (images.length === 0) {
     return null;
   }

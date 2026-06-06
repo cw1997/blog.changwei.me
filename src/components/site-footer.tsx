@@ -1,5 +1,9 @@
 import { Copyright, ExternalLink } from "lucide-react";
 
+interface SiteFooterProps {
+  // no props
+}
+
 const YEAR = new Date().getFullYear();
 
 const footerLinks = [
@@ -7,7 +11,7 @@ const footerLinks = [
   { href: "https://vercel.com", label: "Vercel" },
 ];
 
-export default function SiteFooter() {
+export function SiteFooter(props: Readonly<SiteFooterProps>) {
   return (
     <footer className="border-t border-zinc-100 dark:border-zinc-800">
       <div className="mx-auto w-full max-w-5xl px-6 py-8">

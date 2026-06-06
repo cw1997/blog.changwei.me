@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { BookOpenText, ExternalLink, Menu, Rss, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import ThemeToggle from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 
-export default function SiteHeader() {
+interface SiteHeaderProps {
+  // no props
+}
+
+export function SiteHeader(props: Readonly<SiteHeaderProps>) {
   const [isOpen, setIsOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const mobileNavRef = useRef<HTMLElement | null>(null);
