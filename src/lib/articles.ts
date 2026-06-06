@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { getArticleAssetUrl, listMarkdownFiles, readMarkdownFile } from "@/lib/articles-fs";
+import { extractHeadings } from "@/lib/markdown-headings";
 import {
   createExcerpt,
   extractFirstImageFromMarkdown,
@@ -9,6 +10,7 @@ import {
   parseTrailingFrontmatter,
   resolveMarkdownAssetUrls,
   wrapImagesWithScrollContainer,
+  wrapTablesWithScrollContainer,
 } from "@/lib/markdown";
 import type { Article } from "@/lib/types";
 
@@ -123,7 +125,8 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
 
       const normalizedMarkdown = resolveMarkdownAssetUrls(parsed.body, rawArticleDirUrl);
       const renderedHtml = await markdownToHtml(normalizedMarkdown);
-      const htmlContent = wrapImagesWithScrollContainer(renderedHtml);
+      const htmlContent = wrapTablesWithScrollContainer(wrapImagesWithScrollContainer(renderedHtml));
+      const headings = extractHeadings(normalizedMarkdown);
       const title = parsed.frontmatter.title ?? extractTitleFromMarkdown(parsed.body) ?? formatFallbackTitle(slugSegments.at(-1) ?? slug);
 
       const frontmatterCategories = Array.isArray(parsed.frontmatter.category)
@@ -148,6 +151,7 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
         excerptSource: "first-paragraph",
         htmlContent,
         markdownContent: normalizedMarkdown,
+        headings,
         author: parsed.frontmatter.author,
         categories,
         tags,

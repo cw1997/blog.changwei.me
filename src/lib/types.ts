@@ -1,3 +1,9 @@
+export interface ArticleHeading {
+  id: string;
+  level: number;
+  text: string;
+}
+
 export interface ArticleFrontmatter {
   title?: string;
   slug?: string;
@@ -18,6 +24,7 @@ export interface Article {
   excerptSource: "first-paragraph";
   htmlContent: string;
   markdownContent: string;
+  headings: ArticleHeading[];
   author?: string;
   categories: string[];
   tags: string[];

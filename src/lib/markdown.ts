@@ -1,6 +1,8 @@
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
-import remarkHtml from "remark-html";
+import rehypeSlug from "rehype-slug";
+import rehypeStringify from "rehype-stringify";
+import remarkRehype from "remark-rehype";
 import type { ArticleFrontmatter } from "@/lib/types";
 
 const LEADING_FRONTMATTER_BLOCK_REGEX = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/;
@@ -264,7 +266,18 @@ export function wrapImagesWithScrollContainer(html: string): string {
   );
 }
 
+export function wrapTablesWithScrollContainer(html: string): string {
+  return html.replace(/<table\b[^>]*>[\s\S]*?<\/table>/gi, (tableHtml) => {
+    return `<div class="md-table-scroll" role="region" aria-label="表格（可横向滚动）">${tableHtml}</div>`;
+  });
+}
+
 export async function markdownToHtml(markdown: string): Promise<string> {
-  const output = await remark().use(remarkGfm).use(remarkHtml).process(markdown);
+  const output = await remark()
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeSlug)
+    .use(rehypeStringify)
+    .process(markdown);
   return output.toString();
 }

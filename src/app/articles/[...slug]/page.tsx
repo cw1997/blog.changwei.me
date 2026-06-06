@@ -44,6 +44,7 @@ export default async function ArticleDetailPageServer(props: PageProps<"/article
   }
 
   const coverCaption = `${article.title} 封面图`;
+  const permalink = absoluteUrl(articlePath(article.slug));
 
-  return <ArticleDetailPage article={article} coverCaption={coverCaption} />;
+  return <ArticleDetailPage article={article} coverCaption={coverCaption} permalink={permalink} />;
 }
