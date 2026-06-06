@@ -174,9 +174,7 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
     });
 }
 
-const getAllArticlesCached = unstable_cache(fetchAllArticlesUncached, ["all-articles"], {
-  tags: ["articles"],
-});
+const getAllArticlesCached = unstable_cache(fetchAllArticlesUncached, ["all-articles"]);
 
 export async function getAllArticles(): Promise<Article[]> {
   return getAllArticlesCached();
