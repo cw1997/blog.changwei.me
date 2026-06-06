@@ -2,13 +2,13 @@
 
 Personal blog powered by Next.js App Router.
 
-Content is synced from `cw1997/blog/articles` into `/tmp/articles` before build, then rendered from that local mirror.
+Article content lives in the repository `articles/` directory and is read directly at build and request time.
 
 ## Features
 
-- Sync all markdown and asset files under `cw1997/blog/articles/**` into `/tmp/articles`
+- Read markdown and assets from `articles/**` in this repository
 - Support nested article paths through catch-all route `/articles/[...slug]`
-- Parse trailing frontmatter (metadata stored at markdown file tail)
+- Parse frontmatter (header or trailing metadata block)
 - Render markdown with GFM support
 - Category + Tag filtering on article list (`/articles?category=...&tag=...`)
 - Semantic taxonomy URLs: `/categories/[name]`, `/tags`, `/tags/[name]`
@@ -25,61 +25,33 @@ Content is synced from `cw1997/blog/articles` into `/tmp/articles` before build,
 
 ```bash
 pnpm install
-pnpm sync:articles
 pnpm dev
 ```
 
-Open `http://localhost:31006`.
-
-By default this project starts on port `31006` in development:
-
-```bash
-pnpm dev
-# -> http://localhost:31006
-```
+Open `http://localhost:31008`.
 
 ## Environment Variables
 
 Set these in your deployment platform (or in a local `.env.local` file).
 
-For local development you can copy the example and fill values:
-
 ```bash
-cp .env.example .env.local
-# then edit .env.local and add real values
-```
-
-Example `.env.example` fields:
-
-```bash
-# Optional. Helps avoid GitHub API rate limits for private repositories.
-GITHUB_TOKEN=your_personal_access_token_here
-
-# Required for triggering on-demand revalidation from GitHub webhook.
+# Required for triggering on-demand revalidation from webhook.
 REVALIDATE_SECRET=replace-with-a-random-string
 
 # Used by RSS, sitemap, and absolute canonical/OG URLs. Example: https://blog.changwei.me
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 
-If your content repository is not `cw1997/blog` you can override the coordinates used by the sync script:
-
-```bash
-# Optional: override the owner/repo/branch used to fetch articles
-GITHUB_OWNER=your_github_username_or_org
-GITHUB_REPO=your_content_repo_name
-GITHUB_BRANCH=main
-ARTICLES_MIRROR_ROOT=/tmp/articles
-```
+# Optional: override articles directory (default: ./articles)
+ARTICLES_DIR=articles
 ```
 
 Notes:
 
-- `GITHUB_TOKEN` should be a Personal Access Token (PAT) with `repo` access for private repositories. Keep this secret and prefer using deployment platform secret stores.
 - Next.js automatically loads `.env.local` in development; do not commit `.env.local` to source control.
 
 ## GitHub Webhook Setup
 
-In repository `cw1997/blog`:
+In this repository (`cw1997/blog.changwei.me`):
 
 1. Open Settings -> Webhooks -> Add webhook.
 2. Payload URL:
@@ -92,7 +64,7 @@ https://your-domain.example/api/revalidate?secret=REVALIDATE_SECRET
 4. Events: choose `Just the push event`
 5. Save.
 
-After each sync + build, the site reads article content from the local mirror instead of GitHub at request time.
+Push events trigger cache revalidation so updated `articles/` content is served after the next request or deployment rebuild.
 
 ## Build
 
@@ -100,8 +72,6 @@ After each sync + build, the site reads article content from the local mirror in
 pnpm build
 pnpm start
 ```
-
-`pnpm build` automatically runs `pnpm sync:articles` first.
 
 ## Notes
 

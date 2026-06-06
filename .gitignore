@@ -40,11 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# synced articles assets
-/public/article-assets/
-
 # editor
 .idea/
 
-# tmp
-/tmp
+# blog
+/drafts

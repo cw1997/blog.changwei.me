@@ -27,18 +27,3 @@ export interface Article {
   publishedAt?: string;
   language?: string;
 }
-
-export interface GitTreeItem {
-  path: string;
-  mode: string;
-  type: "blob" | "tree";
-  sha: string;
-  size?: number;
-  url: string;
-}
-
-export interface GitTreeResponse {
-  sha: string;
-  truncated: boolean;
-  tree: GitTreeItem[];
-}

@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "pnpm run sync:articles",
     "dev": "next dev -p 31008",
     "build": "next build",
     "start": "next start -p 31006",
     "lint": "eslint",
     "check-types": "tsc --noEmit",
     "check-types:dev": "tsc --noEmit --watch",
-    "sync:articles": "tsx scripts/sync-articles.ts",
     "upgrade": "pnpx npm-check-updates -i"
   },
   "dependencies": {
@@ -22,8 +20,7 @@
     "react-photo-view": "^1.2.7",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-html": "^16.0.1",
-    "tsx": "^4.22.4"
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",

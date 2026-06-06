@@ -20,7 +20,6 @@ export async function POST(request: Request) {
   }
 
   revalidateTag("articles", "max");
-  revalidateTag("github-tree", "max");
   revalidatePath("/");
   revalidatePath("/articles");
   revalidatePath("/tags");

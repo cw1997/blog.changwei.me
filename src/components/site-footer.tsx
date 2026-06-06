@@ -1,4 +1,4 @@
-import { Copyright, ExternalLink } from "lucide-react";
+import { Copyright } from "lucide-react";
 
 interface SiteFooterProps {
   // no props
@@ -19,18 +19,6 @@ export function SiteFooter(props: Readonly<SiteFooterProps>) {
           <p className="flex items-center gap-1.5">
             <Copyright className="h-3.5 w-3.5" aria-hidden="true" />
             {YEAR} 昌维 (Chang Wei). All rights reserved.
-          </p>
-          <p>
-            内容同步自{" "}
-            <a
-              href="https://github.com/cw1997/blog"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 font-medium text-zinc-500 transition hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:text-zinc-100"
-            >
-              cw1997/blog
-              <ExternalLink className="h-3 w-3" aria-hidden="true" />
-            </a>
           </p>
           <p className="flex items-center gap-1.5">
             <span>Powered by</span>

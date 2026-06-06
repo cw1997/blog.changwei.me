@@ -24,7 +24,7 @@ export function ArticlesPage(props: Readonly<ArticlesPageProps>) {
     <main id="main-content" className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-5 py-10 md:px-6 md:py-14">
       <header className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-5xl">全部文章</h1>
-        <p className="mt-3 text-lg text-zinc-500 dark:text-zinc-400">自动同步自 GitHub 仓库 cw1997/blog/articles，支持多层目录文章。</p>
+        <p className="mt-3 text-lg text-zinc-500 dark:text-zinc-400">仓库 articles/ 目录下的 Markdown 文章，支持多层目录。</p>
       </header>
 
       <section aria-label="文章筛选" className="space-y-4 border-b border-zinc-100 pb-6 dark:border-zinc-800">

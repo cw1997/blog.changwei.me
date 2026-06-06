@@ -12,7 +12,7 @@ export function languageLabel(language?: string): string | undefined {
 }
 
 export const siteName = "昌维的博客";
-export const siteDescription = "个人博客，文章同步自 GitHub 仓库 cw1997/blog。";
+export const siteDescription = "昌维的个人博客。";
 export const defaultLocale = "zh_CN";
 
 export function getSiteUrl(): string {

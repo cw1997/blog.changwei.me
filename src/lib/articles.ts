@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import { getArticleAssetUrl, listMarkdownFiles, readMarkdownFile } from "@/lib/articles-fs";
 import {
   createExcerpt,
   extractFirstImageFromMarkdown,
@@ -9,7 +10,6 @@ import {
   resolveMarkdownAssetUrls,
   wrapImagesWithScrollContainer,
 } from "@/lib/markdown";
-import { getArticlesRootPath, getLocalContentUrl, getRemoteMarkdown, getRepositoryTree } from "@/lib/github";
 import type { Article } from "@/lib/types";
 
 function normalizeCategory(category: string): string {
@@ -28,14 +28,12 @@ function formatFallbackTitle(slug: string): string {
 }
 
 function pathToSlugSegments(markdownPath: string): string[] {
-  const root = getArticlesRootPath();
-
-  if (!markdownPath.startsWith(root) || !markdownPath.endsWith(".md")) {
+  if (!markdownPath.endsWith(".md")) {
     return [];
   }
 
-  const withoutRoot = markdownPath.slice(root.length, -3);
-  const segments = withoutRoot.split("/").filter(Boolean);
+  const withoutExtension = markdownPath.slice(0, -3);
+  const segments = withoutExtension.split("/").filter(Boolean);
 
   if (segments.length >= 2 && segments[segments.length - 1] === segments[segments.length - 2]) {
     return segments.slice(0, -1);
@@ -107,11 +105,7 @@ function filterArticles(
 }
 
 async function fetchAllArticlesUncached(): Promise<Article[]> {
-  const tree = await getRepositoryTree();
-  const markdownPaths = tree.tree
-    .filter((item) => item.type === "blob")
-    .map((item) => item.path)
-    .filter((path) => path.startsWith(getArticlesRootPath()) && path.endsWith(".md"));
+  const markdownPaths = await listMarkdownFiles();
 
   const articles = await Promise.all(
     markdownPaths.map(async (markdownPath): Promise<Article | null> => {
@@ -123,8 +117,8 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
 
       const slug = slugSegments.join("/");
       const articleDir = markdownPath.slice(0, markdownPath.lastIndexOf("/"));
-      const rawArticleDirUrl = getLocalContentUrl(articleDir);
-      const sourceMarkdown = await getRemoteMarkdown(markdownPath);
+      const rawArticleDirUrl = getArticleAssetUrl(articleDir);
+      const sourceMarkdown = await readMarkdownFile(markdownPath);
       const parsed = parseTrailingFrontmatter(sourceMarkdown);
 
       const normalizedMarkdown = resolveMarkdownAssetUrls(parsed.body, rawArticleDirUrl);

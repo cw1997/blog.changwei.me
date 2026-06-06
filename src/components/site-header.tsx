@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpenText, ExternalLink, Menu, Rss, X } from "lucide-react";
+import { BookOpenText, Menu, Rss, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -96,15 +96,6 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
               <Rss className="h-4 w-4" aria-hidden="true" />
               RSS
             </Link>
-            <a
-              href="https://github.com/cw1997/blog"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            >
-              <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              Source
-            </a>
           </nav>
 
           <ThemeToggle />
@@ -147,15 +138,6 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
               <Rss className="h-4 w-4" aria-hidden="true" />
               RSS
             </Link>
-            <a
-              href="https://github.com/cw1997/blog"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              Source
-            </a>
           </div>
         </nav>
       )}
