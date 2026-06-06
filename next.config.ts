@@ -16,6 +16,16 @@ function getGitInfo(): { sha: string; shaFull: string; date: string } {
 const gitInfo = getGitInfo();
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // 跨次 build 复用 Turbopack 磁盘缓存（默认仅 dev 开启）
+    turbopackFileSystemCacheForBuild: true,
+    // 并行收集服务端构建 trace，以内存换构建时间
+    parallelServerBuildTraces: true,
+    // 静态页较少时降低 worker 启动门槛，提升 SSG 并行度
+    staticGenerationMinPagesPerWorker: 5,
+    // 按需 tree-shake 大包，减少编译与打包体积
+    optimizePackageImports: ["lucide-react"],
+  },
   env: {
     NEXT_PUBLIC_GIT_COMMIT_SHA: gitInfo.sha,
     NEXT_PUBLIC_GIT_COMMIT_SHA_FULL: gitInfo.shaFull,
