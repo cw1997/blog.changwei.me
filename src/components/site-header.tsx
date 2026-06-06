@@ -1,13 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpenText, Menu, Rss, X } from "lucide-react";
+import { BookOpenText, FolderOpen, Menu, Rss, Tags, X, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 interface SiteHeaderProps {
   // no props
 }
+
+interface MainNavLink {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+}
+
+const mainNavLinks: MainNavLink[] = [
+  { href: "/articles", label: "文章", icon: BookOpenText },
+  { href: "/categories", label: "分类", icon: FolderOpen },
+  { href: "/tags", label: "标签", icon: Tags },
+  { href: "/rss.xml", label: "RSS", icon: Rss },
+];
 
 export function SiteHeader(props: Readonly<SiteHeaderProps>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,20 +95,19 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
 
         <div className="flex items-center gap-1">
           <nav aria-label="主导航" className="hidden items-center gap-0.5 md:flex">
-            <Link
-              href="/articles"
-              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            >
-              <BookOpenText className="h-4 w-4" aria-hidden="true" />
-              文章
-            </Link>
-            <Link
-              href="/rss.xml"
-              className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            >
-              <Rss className="h-4 w-4" aria-hidden="true" />
-              RSS
-            </Link>
+            {mainNavLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                >
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <ThemeToggle />
@@ -122,22 +134,20 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
           className="border-t border-zinc-100 bg-white px-5 py-2 dark:border-zinc-800 dark:bg-zinc-950 md:hidden"
         >
           <div className="grid gap-1">
-            <Link
-              href="/articles"
-              onClick={closeMenu}
-              className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              <BookOpenText className="h-4 w-4" aria-hidden="true" />
-              文章
-            </Link>
-            <Link
-              href="/rss.xml"
-              onClick={closeMenu}
-              className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              <Rss className="h-4 w-4" aria-hidden="true" />
-              RSS
-            </Link>
+            {mainNavLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className="inline-flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                >
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </nav>
       )}
