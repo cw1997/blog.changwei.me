@@ -5,6 +5,7 @@ import Link from "next/link";
 import { BookOpenText, FolderOpen, Home, Menu, Rss, Tags, X, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { GitHubIcon } from "@/components/brand-icons";
+import { ScrollProgressBar } from "@/components/scroll-progress-bar";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 interface SiteHeaderProps {
@@ -97,7 +98,7 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
   }, [isOpen]);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-zinc-100 bg-white/95 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90">
+    <header className="sticky top-0 z-30 relative border-b border-zinc-100 bg-[var(--chrome)]/95 backdrop-blur dark:border-zinc-800">
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-5 py-3.5 md:px-6">
         <Link
           href="/"
@@ -166,7 +167,7 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
           ref={mobileNavRef}
           id="mobile-main-nav"
           aria-label="移动端导航"
-          className="border-t border-zinc-100 bg-white px-5 py-2 dark:border-zinc-800 dark:bg-zinc-950 md:hidden"
+          className="border-t border-zinc-100 bg-[var(--chrome)] px-5 py-2 dark:border-zinc-800 md:hidden"
         >
           <div className="grid gap-1">
             {mainNavLinks.map((link) => {
@@ -186,6 +187,7 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
           </div>
         </nav>
       )}
+      <ScrollProgressBar />
     </header>
   );
 }

@@ -9,6 +9,7 @@
   --border: #e6e6e6;
   --surface: #ffffff;
   --surface-soft: #fafafa;
+  --chrome: #f7f7f7;
   --accent: #1a8917;
   --accent-soft: #e8f5e9;
   --focus-ring: #1a8917;
@@ -30,6 +31,7 @@
   --border: #333333;
   --surface: #242424;
   --surface-soft: #2e2e2e;
+  --chrome: #1f1f1f;
   --accent: #3cb043;
   --accent-soft: #1a3d1a;
   --focus-ring: #3cb043;
@@ -365,6 +367,10 @@ button {
   button:active {
     transform: scale(0.98);
   }
+}
+
+.scroll-progress-bar {
+  transition: width 75ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

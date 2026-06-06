@@ -61,7 +61,7 @@ export function SiteFooter(props: Readonly<SiteFooterProps>) {
       : undefined;
 
   return (
-    <footer className="border-t border-zinc-100 dark:border-zinc-800">
+    <footer className="border-t border-zinc-100 bg-[var(--chrome)] dark:border-zinc-800">
       <div className="mx-auto w-full max-w-5xl px-6 py-8">
         <div className="flex flex-col gap-3 text-sm text-zinc-400 dark:text-zinc-500">
           <p className="flex items-center gap-1.5">
