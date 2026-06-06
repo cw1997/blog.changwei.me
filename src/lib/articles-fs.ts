@@ -58,5 +58,5 @@ export async function readArticleAsset(relativePath: string): Promise<Buffer> {
 
 export function getArticleAssetUrl(relativeDir: string): string {
   const normalized = relativeDir.replace(/\\/g, "/").replace(/^\/+|\/+$/g, "");
-  return normalized ? `/article-assets/${normalized}` : "/article-assets";
+  return normalized ? `/articles/${normalized}` : "/articles";
 }
