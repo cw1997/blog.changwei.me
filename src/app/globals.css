@@ -245,7 +245,7 @@ button {
   opacity: 1;
 }
 
-.markdown-body code {
+.markdown-body :not(pre) > code {
   border-radius: 0.25rem;
   background: var(--surface-soft);
   padding: 0.15rem 0.35rem;
@@ -253,20 +253,45 @@ button {
   font-size: 0.85em;
 }
 
-.markdown-body pre {
-  overflow-x: auto;
-  border-radius: 0.5rem;
-  background: var(--surface-soft);
-  padding: 1rem;
-  color: var(--foreground);
-  border: 1px solid var(--border);
-  font-size: 0.85rem;
+.markdown-body [data-rehype-pretty-code-figure] {
+  margin: 1.25rem 0;
 }
 
-.markdown-body pre code {
+.markdown-body [data-rehype-pretty-code-figure] pre {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  padding: 1rem 0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85rem;
+  background-color: var(--shiki-light-bg);
+}
+
+.markdown-body [data-rehype-pretty-code-figure] pre [data-line] {
+  padding: 0 1rem;
+}
+
+.markdown-body [data-rehype-pretty-code-figure] pre code {
+  display: block;
   background: transparent;
   padding: 0;
-  color: inherit;
+  font-size: inherit;
+}
+
+.markdown-body code[data-theme*=" "],
+.markdown-body code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+:root[data-theme="dark"] .markdown-body [data-rehype-pretty-code-figure] pre {
+  background-color: var(--shiki-dark-bg);
+}
+
+:root[data-theme="dark"] .markdown-body code[data-theme*=" "],
+:root[data-theme="dark"] .markdown-body code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
 }
 
 .markdown-body blockquote {

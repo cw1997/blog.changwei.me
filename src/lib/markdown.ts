@@ -1,8 +1,10 @@
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
+import { rehypePrettyCodeOptions } from "@/lib/rehype-pretty-code-options";
 import type { ArticleFrontmatter } from "@/lib/types";
 
 const LEADING_FRONTMATTER_BLOCK_REGEX = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/;
@@ -276,6 +278,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   const output = await remark()
     .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypePrettyCode, rehypePrettyCodeOptions)
     .use(rehypeSlug)
     .use(rehypeStringify)
     .process(markdown);
