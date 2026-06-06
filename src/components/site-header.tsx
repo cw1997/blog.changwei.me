@@ -1,8 +1,10 @@
 "use client";
 
+import type { ComponentType } from "react";
 import Link from "next/link";
-import { BookOpenText, FolderOpen, Menu, Rss, Tags, X, type LucideIcon } from "lucide-react";
+import { BookOpenText, FolderOpen, Home, Menu, Rss, Tags, X, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { GitHubIcon } from "@/components/brand-icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 interface SiteHeaderProps {
@@ -21,6 +23,20 @@ const mainNavLinks: MainNavLink[] = [
   { href: "/tags", label: "标签", icon: Tags },
   { href: "/rss.xml", label: "RSS", icon: Rss },
 ];
+
+interface ExternalNavLink {
+  href: string;
+  label: string;
+  icon: LucideIcon | ComponentType<{ className?: string }>;
+}
+
+const externalNavLinks: ExternalNavLink[] = [
+  { href: "https://www.changwei.me", label: "个人主页", icon: Home },
+  { href: "https://github.com/cw1997", label: "GitHub", icon: GitHubIcon },
+];
+
+const iconLinkClassName =
+  "inline-flex h-9 w-9 items-center justify-center rounded-md text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100";
 
 export function SiteHeader(props: Readonly<SiteHeaderProps>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,6 +122,25 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
                   <Icon className="h-4 w-4" aria-hidden="true" />
                   {link.label}
                 </Link>
+              );
+            })}
+          </nav>
+
+          <nav aria-label="外部链接" className="flex items-center gap-0.5">
+            {externalNavLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                  title={link.label}
+                  className={iconLinkClassName}
+                >
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </a>
               );
             })}
           </nav>
