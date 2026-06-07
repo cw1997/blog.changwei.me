@@ -47,7 +47,7 @@ tag: [NTNU, Student Election, Policy Speech, Slido, Campus Life, Student Governm
 
 此環節採自由發問，和總統大選類似：選舉人可自由舉手當面提問，或在 Slido 上線上提問，並可指定由哪位候選人回答，或不指定候選人。若不指定候選人，候選人可以搶答，也可以保持沉默、不作回答；若指定候選人，則通常由對應的候選人回答。
 
-![](policy-speech-venue.jpg)
+![Policy speech venue at NTNU Pu 402 classroom](./policy-speech-venue.jpg)
 
 ## Slido：匿名提問，按讚決定先後
 
@@ -55,7 +55,7 @@ tag: [NTNU, Student Election, Policy Speech, Slido, Campus Life, Student Governm
 
 提問順序以 Slido 上**按讚數多者優先**。我當下覺得這個設計很聰明：一方面維持匿名，降低當面質疑的壓力；另一方面又用按讚把「同學最想知道的事」排出優先順序，避免現場只聽得到最大聲的那幾個問題。許多原本只會在私下抱怨的疑慮，有機會被整理成螢幕上的文字，再進入有時間限制的公開答覆。
 
-![](slido-anonymous-qa.jpg)
+![Slido anonymous Q&A interface screenshot](./slido-anonymous-qa.jpg)
 
 實體發表會加上數位問答，等於把傳統的公開論述，和這一代熟悉的參與方式接在一起。對我這種第一次參與的人來說，就算不敢舉手，至少還能透過 Slido 看見同學真正在意什麼，並觀察候選人如何在限時內回應。
 

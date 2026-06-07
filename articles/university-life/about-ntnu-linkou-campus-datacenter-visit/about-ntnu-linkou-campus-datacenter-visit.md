@@ -24,11 +24,11 @@ cover_image: linkou-datacenter-01.jpg
 
 由於校本部的資訊中心機房主要在教育大樓的四樓，那邊空間不足以擺放過多機器，因此更多伺服器主要都設置在林口校區，其位於新北市林口區。沿途經過林口新創園、仁愛路一帶，路標上也能看見指向「國立臺灣師範大學（林口校區前門）」的指示。
 
-![](linkou-datacenter-22.jpg)
+![Road sign pointing to NTNU Linkou campus entrance](./linkou-datacenter-22.jpg)
 
 抵達後，我們先在**資訊中心**（Information Technology Center）門口集合。藍底白字的招牌上寫著「資訊中心／Information Technology Center／National Taiwan Normal University」，參與者約二十多人，多數是對系統與基礎設施有興趣的學生。
 
-![](linkou-datacenter-01.jpg)
+![Information Technology Center building entrance at Linkou campus](./linkou-datacenter-01.jpg)
 
 ## 第一印象：又冷又吵
 
@@ -36,11 +36,11 @@ cover_image: linkou-datacenter-01.jpg
 
 冷，來自為伺服器散熱而運轉的空調與氣流設計；吵，則來自機櫃內風扇、冷卻設備與不間斷運轉的硬體。和一般教室或辦公室完全不同，這裡的環境是為了讓機器 7×24 小時穩定運轉而設計的，人反而要適應機器的「舒適區間」。
 
-![](linkou-datacenter-04.jpg)
+![Cold aisle containment in the datacenter](./linkou-datacenter-04.jpg)
 
-![](linkou-datacenter-05.jpg)
+![Server rack corridor in the datacenter](./linkou-datacenter-05.jpg)
 
-![](linkou-datacenter-06.jpg)
+![Air conditioning and cooling equipment in the datacenter](./linkou-datacenter-06.jpg)
 
 ## 雲端節能機房：冷氣只送進機櫃通道
 
@@ -48,9 +48,9 @@ cover_image: linkou-datacenter-01.jpg
 
 這種**冷／熱通道分離**（或通道封閉）的設計，目的是把冷空氣精準送到需要散熱的設備進風側，避免冷熱空氣混流造成能源浪費。相較於傳統「整室強冷」的模式，通常能更有效地利用每一度電。
 
-![](linkou-datacenter-07.jpg)
+![Cold aisle enclosed with glass doors](./linkou-datacenter-07.jpg)
 
-![](linkou-datacenter-08.jpg)
+![Inside the cold aisle with perforated floor tiles](./linkou-datacenter-08.jpg)
 
 資訊中心同仁提到，這裡年均 **PUE** 低於 **1.6**。PUE（Power Usage Effectiveness，電源使用效率）的計算方式是：
 
@@ -58,39 +58,39 @@ cover_image: linkou-datacenter-01.jpg
 
 數值越接近 1，代表越多的電力用在實際運算與儲存，而不是被空調、配電等周邊設備消耗。PUE 低於 1.6 在學校自營機房裡已屬不錯的水準，這也是此區域被稱作**「雲端節能機房」**的原因。
 
-![](linkou-datacenter-09.jpg)
+![Server rack front view with network cables](./linkou-datacenter-09.jpg)
 
-![](linkou-datacenter-10.jpg)
+![Server room overview with rack rows](./linkou-datacenter-10.jpg)
 
-![](linkou-datacenter-11.jpg)
+![Overhead cable management in the datacenter](./linkou-datacenter-11.jpg)
 
 ## 機櫃裡有什麼：從線材到 KVM
 
 走進機櫃通道，一排排黑色機櫃整齊延伸，網孔門後可見密布的網路線材與設備指示燈。有些機櫃的線材管理非常嚴謹，也有些「線材參考圖」讓人會心一笑——現場工作人員笑說，理想與現實有時就是差在理線的時間與人力。
 
-![](linkou-datacenter-12.jpg)
+![Dense network cabling in a server rack](./linkou-datacenter-12.jpg)
 
 講解過程中，同仁介紹了各類設備的用途與運作原理：例如 **KVM** 主控台（可在一台螢幕前切換操作多台伺服器）、**NVR** 監視主機、門禁保全主機，以及 **APC InRow** 等列間冷卻設備。機櫃上貼有「F6」「Row F2」等標示，方便維運人員定位；也有「電池櫃」等標籤，對應不斷電系統的蓄電模組。
 
-![](linkou-datacenter-13.jpg)
+![KVM console and monitoring equipment](./linkou-datacenter-13.jpg)
 
-![](linkou-datacenter-14.jpg)
+![NVR surveillance and access control hosts](./linkou-datacenter-14.jpg)
 
-![](linkou-datacenter-15.jpg)
+![APC InRow cooling unit between racks](./linkou-datacenter-15.jpg)
 
-![](linkou-datacenter-16.jpg)
+![Battery cabinet for UPS system](./linkou-datacenter-16.jpg)
 
 廠商與資訊中心人員也現場示範了伺服器**滑軌**（rail）等機房裡才會接觸到的硬體細節——這些在雲端服務的抽象介面背後，都是實體存在、需要人工安裝與維護的零件。
 
-![](linkou-datacenter-17.jpg)
+![Server slide rail demonstration](./linkou-datacenter-17.jpg)
 
-![](linkou-datacenter-18.jpg)
+![Server hardware detail view](./linkou-datacenter-18.jpg)
 
-![](linkou-datacenter-19.jpg)
+![Network switch and patch panel in rack](./linkou-datacenter-19.jpg)
 
-![](linkou-datacenter-20.jpg)
+![Power distribution unit in server rack](./linkou-datacenter-20.jpg)
 
-![](linkou-datacenter-21.jpg)
+![Group photo at the datacenter visit](./linkou-datacenter-21.jpg)
 
 ## 和日常校園服務的連結
 
