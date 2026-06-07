@@ -14,11 +14,7 @@ tag: [Web, Web Front-End, Front-End, User Interface(UI), UX(User Experience), Ty
 
 收到同事反馈，天才计划 https://tidb.io/talent-plan 页面的 introduction 部分文字的第一行溢出。
 
-![天才计划 https://tidb.io/talent-plan 页面的 introduction 部分文字的第一行溢出](./天才计划页面的 introduction 部分文字的第一行溢出.png)
-
-
-
-编辑切换为居中
+![天才计划页面的 introduction 部分文字的第一行溢出](./%E5%A4%A9%E6%89%8D%E8%AE%A1%E5%88%92%E9%A1%B5%E9%9D%A2%E7%9A%84%20introduction%20%E9%83%A8%E5%88%86%E6%96%87%E5%AD%97%E7%9A%84%E7%AC%AC%E4%B8%80%E8%A1%8C%E6%BA%A2%E5%87%BA.png)
 
 天才计划 https://tidb.io/talent-plan 页面的 introduction 部分文字的第一行溢出
 
@@ -31,8 +27,6 @@ tag: [Web, Web Front-End, Front-End, User Interface(UI), UX(User Experience), Ty
 但是你可以通过设置 line-break 为其他值，修改该换行规则。具体参考 [line-break - CSS: Cascading Style Sheets | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/line-break) 
 
 ![line-break-CSS-rules](./line-break-CSS-rules.png)
-
-
 
 至此，以上问题的原因已查明。
 
