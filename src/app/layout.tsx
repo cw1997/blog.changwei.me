@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Serif_SC } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SiteFooter } from "@/components/site-footer";
@@ -15,6 +15,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const notoSerifSc = Noto_Serif_SC({
+  variable: "--font-noto-serif-sc",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -49,14 +55,37 @@ export const metadata: Metadata = {
   },
 };
 
-const themeInitScript = `(() => {
+const appInitScript = `(() => {
   try {
-    const stored = localStorage.getItem("theme");
+    const storedTheme = localStorage.getItem("theme");
     const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const theme = stored === "light" || stored === "dark" ? stored : (systemDark ? "dark" : "light");
+    const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : (systemDark ? "dark" : "light");
     document.documentElement.setAttribute("data-theme", theme);
   } catch {
     document.documentElement.setAttribute("data-theme", "light");
+  }
+
+  try {
+    const defaults = { textSize: "medium", fontFamily: "sans", contentWidth: "standard", lineSpacing: "standard" };
+    const raw = localStorage.getItem("reader-settings");
+    const parsed = raw ? JSON.parse(raw) : {};
+    const textSizes = ["small", "medium", "large"];
+    const fontFamilies = ["sans", "serif"];
+    const contentWidths = ["narrow", "standard", "wide", "full"];
+    const lineSpacings = ["compact", "standard", "relaxed"];
+    const textSize = textSizes.includes(parsed.textSize) ? parsed.textSize : defaults.textSize;
+    const fontFamily = fontFamilies.includes(parsed.fontFamily) ? parsed.fontFamily : defaults.fontFamily;
+    const contentWidth = contentWidths.includes(parsed.contentWidth) ? parsed.contentWidth : defaults.contentWidth;
+    const lineSpacing = lineSpacings.includes(parsed.lineSpacing) ? parsed.lineSpacing : defaults.lineSpacing;
+    document.documentElement.setAttribute("data-text-size", textSize);
+    document.documentElement.setAttribute("data-font-family", fontFamily);
+    document.documentElement.setAttribute("data-content-width", contentWidth);
+    document.documentElement.setAttribute("data-line-spacing", lineSpacing);
+  } catch {
+    document.documentElement.setAttribute("data-text-size", "medium");
+    document.documentElement.setAttribute("data-font-family", "sans");
+    document.documentElement.setAttribute("data-content-width", "standard");
+    document.documentElement.setAttribute("data-line-spacing", "standard");
   }
 })();`;
 
@@ -69,10 +98,10 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${notoSerifSc.variable} h-full antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: appInitScript }} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0MNNL1G7M3"
           strategy="afterInteractive"

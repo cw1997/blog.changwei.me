@@ -3,17 +3,26 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
-  --background: #ffffff;
+  --background: #f7f7f7;
   --foreground: #242424;
   --muted: #6b6b6b;
-  --border: #e6e6e6;
+  --border: #dcdee2;
   --surface: #ffffff;
-  --surface-soft: #fafafa;
-  --chrome: #f7f7f7;
+  --surface-soft: #f5f5f7;
+  --chrome: #e8e8ec;
   --accent: #1a8917;
   --accent-soft: #e8f5e9;
   --focus-ring: #1a8917;
   --card-shadow: none;
+  --reader-text-size: 1rem;
+  --reader-text-size-md: 1.0625rem;
+  --reader-heading-scale: 1;
+  --reader-line-height: 1.8;
+  --reader-line-height-md: 1.75;
+  --reader-paragraph-gap: 1.2rem;
+  --reader-list-item-gap: 0.35rem;
+  --reader-font-body: var(--font-geist-sans), "Noto Sans SC", "PingFang SC", sans-serif;
+  --reader-content-max-width: 48rem;
   color-scheme: light;
 }
 
@@ -25,13 +34,13 @@
 }
 
 :root[data-theme="dark"] {
-  --background: #191919;
+  --background: #1e1e22;
   --foreground: #e6e6e6;
   --muted: #8c8c8c;
-  --border: #333333;
-  --surface: #242424;
-  --surface-soft: #2e2e2e;
-  --chrome: #1f1f1f;
+  --border: #3e3e44;
+  --surface: #2c2c32;
+  --surface-soft: #323238;
+  --chrome: #28282e;
   --accent: #3cb043;
   --accent-soft: #1a3d1a;
   --focus-ring: #3cb043;
@@ -42,8 +51,71 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), "Noto Sans SC", "PingFang SC", sans-serif;
+  font-family: var(--reader-font-body);
   transition: background-color 160ms ease, color 160ms ease;
+}
+
+:root[data-text-size="small"] {
+  --reader-text-size: 0.9375rem;
+  --reader-text-size-md: 1rem;
+  --reader-heading-scale: 0.92;
+}
+
+:root[data-text-size="medium"] {
+  --reader-text-size: 1rem;
+  --reader-text-size-md: 1.0625rem;
+  --reader-heading-scale: 1;
+}
+
+:root[data-text-size="large"] {
+  --reader-text-size: 1.125rem;
+  --reader-text-size-md: 1.1875rem;
+  --reader-heading-scale: 1.08;
+}
+
+:root[data-font-family="sans"] {
+  --reader-font-body: var(--font-geist-sans), "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+:root[data-font-family="serif"] {
+  --reader-font-body: var(--font-noto-serif-sc), "Noto Serif SC", "Songti SC", "SimSun", serif;
+}
+
+:root[data-content-width="narrow"] {
+  --reader-content-max-width: 36rem;
+}
+
+:root[data-content-width="standard"] {
+  --reader-content-max-width: 48rem;
+}
+
+:root[data-content-width="wide"] {
+  --reader-content-max-width: 56rem;
+}
+
+:root[data-content-width="full"] {
+  --reader-content-max-width: none;
+}
+
+:root[data-line-spacing="compact"] {
+  --reader-line-height: 1.55;
+  --reader-line-height-md: 1.5;
+  --reader-paragraph-gap: 0.9rem;
+  --reader-list-item-gap: 0.2rem;
+}
+
+:root[data-line-spacing="standard"] {
+  --reader-line-height: 1.8;
+  --reader-line-height-md: 1.75;
+  --reader-paragraph-gap: 1.2rem;
+  --reader-list-item-gap: 0.35rem;
+}
+
+:root[data-line-spacing="relaxed"] {
+  --reader-line-height: 2.05;
+  --reader-line-height-md: 2;
+  --reader-paragraph-gap: 1.5rem;
+  --reader-list-item-gap: 0.5rem;
 }
 
 * {
@@ -62,14 +134,14 @@ button {
 
 .markdown-body {
   color: var(--foreground);
-  line-height: 1.8;
-  font-size: 1rem;
+  line-height: var(--reader-line-height);
+  font-size: var(--reader-text-size);
 }
 
 @media (min-width: 768px) {
   .markdown-body {
-    font-size: 1.0625rem;
-    line-height: 1.75;
+    font-size: var(--reader-text-size-md);
+    line-height: var(--reader-line-height-md);
   }
 }
 
@@ -86,22 +158,22 @@ button {
 }
 
 .markdown-body h1 {
-  font-size: 1.85rem;
+  font-size: calc(1.85rem * var(--reader-heading-scale));
 }
 
 .markdown-body h2 {
-  font-size: 1.5rem;
+  font-size: calc(1.5rem * var(--reader-heading-scale));
 }
 
 .markdown-body h3 {
-  font-size: 1.25rem;
+  font-size: calc(1.25rem * var(--reader-heading-scale));
 }
 
 .markdown-body p,
 .markdown-body ul,
 .markdown-body ol,
 .markdown-body blockquote {
-  margin: 1.2rem 0;
+  margin: var(--reader-paragraph-gap) 0;
 }
 
 .markdown-body ul,
@@ -122,7 +194,7 @@ button {
 }
 
 .markdown-body li + li {
-  margin-top: 0.35rem;
+  margin-top: var(--reader-list-item-gap);
 }
 
 .markdown-body ul ul,
@@ -413,18 +485,14 @@ button {
 
 @media (max-width: 768px) {
   .markdown-body h1 {
-    font-size: 1.55rem;
+    font-size: calc(1.55rem * var(--reader-heading-scale));
   }
 
   .markdown-body h2 {
-    font-size: 1.25rem;
+    font-size: calc(1.25rem * var(--reader-heading-scale));
   }
 
   .md-image-block {
     margin-block: 0.8rem;
-  }
-
-  .markdown-body {
-    font-size: 0.9375rem;
   }
 }

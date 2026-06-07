@@ -31,7 +31,7 @@ export function ArticleDetailPage(props: Readonly<ArticleDetailPageProps>) {
           </div>
         </aside>
 
-        <article className="min-w-0 w-full max-w-3xl flex-1">
+        <article id="article-content" className="min-w-0 w-full max-w-[var(--reader-content-max-width)] flex-1">
           <header className="w-full">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-green-700 dark:text-green-400">Article</p>
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:text-[2.6rem]">{article.title}</h1>

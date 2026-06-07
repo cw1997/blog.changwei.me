@@ -6,6 +6,7 @@ import { BookOpenText, FolderOpen, Home, Menu, Rss, Tags, X, type LucideIcon } f
 import { useEffect, useRef, useState } from "react";
 import { GitHubIcon } from "@/components/brand-icons";
 import { ScrollProgressBar } from "@/components/scroll-progress-bar";
+import { ReaderSettingsToggle } from "@/components/reader-settings-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 interface SiteHeaderProps {
@@ -98,7 +99,7 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
   }, [isOpen]);
 
   return (
-    <header className="sticky top-0 z-30 relative border-b border-zinc-100 bg-[var(--chrome)]/95 backdrop-blur dark:border-zinc-800">
+    <header className="sticky top-0 z-30 relative border-b border-zinc-100 bg-[var(--chrome)]/80 backdrop-blur backdrop-saturate-150 dark:border-zinc-800">
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-5 py-3.5 md:px-6">
         <Link
           href="/"
@@ -146,6 +147,7 @@ export function SiteHeader(props: Readonly<SiteHeaderProps>) {
             })}
           </nav>
 
+          <ReaderSettingsToggle />
           <ThemeToggle />
 
           <button
