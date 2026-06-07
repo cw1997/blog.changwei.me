@@ -1,5 +1,6 @@
 "use client";
 
+import { copyText } from "@/lib/share";
 import { Check, Link2, QrCode, Share2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import QRCode from "react-qr-code";
@@ -9,15 +10,6 @@ const COPY_FEEDBACK_MS = 5000;
 interface ArticleShareBarProps {
   permalink: string;
   title: string;
-}
-
-async function copyText(text: string): Promise<boolean> {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 export function ArticleShareBar(props: Readonly<ArticleShareBarProps>) {

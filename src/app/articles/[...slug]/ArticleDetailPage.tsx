@@ -3,6 +3,7 @@ import { CalendarClock, FolderOpen, Tag, UserRound } from "lucide-react";
 import type { Article } from "@/lib/types";
 import { categoryPath, languageLabel, tagPath } from "@/lib/site";
 import { ArticleContentEnhancer } from "@/components/article-content-enhancer";
+import { ArticleFloatingActions } from "@/components/article-floating-actions";
 import { ArticleMarkdown } from "@/components/article-markdown";
 import { ArticleShareBar } from "@/components/article-share-bar";
 import { ArticleToc } from "@/components/article-toc";
@@ -103,6 +104,8 @@ export function ArticleDetailPage(props: Readonly<ArticleDetailPageProps>) {
           </ArticleContentEnhancer>
         </article>
       </div>
+
+      <ArticleFloatingActions title={article.title} excerpt={article.excerpt} permalink={permalink} />
     </main>
   );
 }
