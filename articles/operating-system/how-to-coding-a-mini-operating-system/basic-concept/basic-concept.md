@@ -19,7 +19,7 @@ cover_image: cover.png
 
 案例项目地址： [https://github.com/cw1997/ez-rtos](https://github.com/cw1997/ez-rtos)
 
-![](keil_uvision_about.png)
+![keil_uvision_about](keil_uvision_about.png)
 
 硬件部分我会用 STM32 单片机作为 CPU ，你可以花点小钱（大概三百人民币以内）在某宝上购买一块 STM32 开发板亲自做一下这个操作系统的实验加深理解。当然你也可以直接在 Keil 这个软件中跑仿真来验证自己的实验结果。不过我觉得能够让自己写出来的操作系统看得见摸得着，花点小钱买个开发板还是很值得的，毕竟这样还可以把学习成果分享给身边的人，很 cooooooool 不是吗 →_→。
 
@@ -27,7 +27,7 @@ cover_image: cover.png
 
 型号方面我目前用的是 `STM32F103ZET6` 这款单片机芯片，这个型号的 Flash （存放你写的操作系统代码的存储器，你可以理解为电脑中的硬盘）是较大的一款，除了学校教育用途以外，在工业界用的也很多，性价比也很合适，除了不能联网和蓝牙以外，各种外设功能也都很齐全，作为学生来说非常适合。你只要确保你买到的 STM32 开发板的芯片型号开头部分是 STM32F103 就好，后面的 ZET6 的区别仅仅体现在内存容量，工作温度等，对我们学习 OS 本身影响不是很大。
 
-![](stm32f103zet6-chip.png)
+![stm32f103zet6-chip](stm32f103zet6-chip.png)
 
 ## 前置知识
 
@@ -39,7 +39,7 @@ cover_image: cover.png
 
 如果你不是计算机科学或者电子工程相关的科班学生，可能没有修过《计算机组成原理》或者《汇编语言》相关课程，因此我推荐你可以先看看《编码》
 
-[编码 (豆瓣)](https://github.com/cw1997/ez-rtos)
+[编码 (豆瓣)](https://book.douban.com/subject/4822685/)
 
 先对信息，数字电路这些概念有基本认识。
 
@@ -75,15 +75,15 @@ cover_image: cover.png
 
 但是在手机以及嵌入式领域那就不一样了。为了压缩成本和功耗，嵌入式领域会针对不同场景推出专用的微架构。例如 ARM 有 Cortex-M 系列，Cortex-A 系列，还有针对实时控制领域的 Cortex-R 系列。手机上我们听到最多的就是 ARM Cortex-A系列了，例如A53，A73等，其中A73指的就是这款手机的CPU微架构是ARM Cortex-A73。因为微架构不一样，因此手机系统就存在兼容性问题，例如一些老旧手机就不能升级新的安卓系统。
 
-![](arm-core-category.png)
+![arm-core-category](arm-core-category.png)
 
-![](stm32-mcu-cortex-m-core-family.png)
+![stm32-mcu-cortex-m-core-family](stm32-mcu-cortex-m-core-family.png)
 
 我们这里编写操作系统的CPU指令集架构为 Cortex-M3，简称CM3，请记住这个指令集架构的名称。后续我们在开发过程中会参考《Cortex-M3权威指南》这本手册，这本手册就详细描述了CM3这个指令集架构的一些行为特性，这些行为细节对于我们开发操作系统很重要。
 
-![](the-definitive-guide-to-the-arm-cortex-m3-book-cover.png)
+![the-definitive-guide-to-the-arm-cortex-m3-book-cover](the-definitive-guide-to-the-arm-cortex-m3-book-cover.png)
 
-![](the-definitive-guide-to-the-arm-cortex-m3-book-intro-page.png)
+![the-definitive-guide-to-the-arm-cortex-m3-book-intro-page](the-definitive-guide-to-the-arm-cortex-m3-book-intro-page.png)
 
 ### 单片机
 前面提到了 CPU 和指令集架构，他们和单片机之间是什么关系呢？我们类比家用电脑来说明。
@@ -92,23 +92,23 @@ cover_image: cover.png
 
 例如 `STM32F103ZET6` 这款单片机芯片就集成了 Cortex-M3 的 CPU，512KB 的“硬盘”，64KB 的内存，以及带有 112 个 GPIO 接口的“主板”
 
-![](stm32f1-arm-cortex-m3-selection-guide-2016.png)
+![stm32f1-arm-cortex-m3-selection-guide-2016](stm32f1-arm-cortex-m3-selection-guide-2016.png)
 
 其实 STM32 的芯片型号有很明显的规律，可以在 ST 官网的芯片选型手册中查看到。
 
 我这里有一张 2016 年的选型手册的截图可以给大家参考
 
-![](stm32f1-arm-cortex-m3-model-rule.png)
+![stm32f1-arm-cortex-m3-model-rule](stm32f1-arm-cortex-m3-model-rule.png)
 
 ### 外设
 提到外设，我们可能会想到，打游戏需要很好的鼠标键盘耳机，这些是家用电脑的外设。到了嵌入式领域，这些外设则是下图中提到的定时器，USART，USB，SD卡等集成在单片机内部的外设。这些外设可以方便我们做嵌入式开发，也可以方便我们CPU和外界交换数据。
 
-![](stm32f1-arm-cortex-m3-peripherals.png)
+![stm32f1-arm-cortex-m3-peripherals](stm32f1-arm-cortex-m3-peripherals.png)
 
 ## 准备环境
 首先你需要正确安装好 Keil 5 以及 STM32F1 系列的 pack，具体环境配置请自行使用搜索引擎。配置好以后，你在创建项目的时候应该可以看到如下的 device 可供选择。
 
-![](keil-5-set-target.png)
+![keil-5-set-target](keil-5-set-target.png)
 
 然后你可以在 github 下载本教程相关的所有源代码，地址如下
 
@@ -116,13 +116,13 @@ cover_image: cover.png
 
 [https://github.com/cw1997/ez-rtos](https://github.com/cw1997/ez-rtos)
 
-![](ez-rtos-github-repo.png)
+![ez-rtos-github-repo](ez-rtos-github-repo.png)
 
 然后你还需要下载如下文档，以便后续参考。下载地址我放在图片后方
 
-![](stm32-documents.png)
+![stm32-documents](stm32-documents.png)
 
-> 链接：[https://pan.baidu.com/s/10NPAMMLbcw8Yv2JSbwlduQ](https://github.com/cw1997/ez-rtos)
+> 链接：[https://pan.baidu.com/s/10NPAMMLbcw8Yv2JSbwlduQ](https://pan.baidu.com/s/10NPAMMLbcw8Yv2JSbwlduQ)
 > 
 > 提取码：1234
 > 
@@ -130,11 +130,11 @@ cover_image: cover.png
 
 以上准备都做好以后，打开刚刚从GitHub clone下来的项目文件夹，你会看到如下文件
 
-![](ez-rtos-github-repo-files.png)
+![ez-rtos-github-repo-files](ez-rtos-github-repo-files.png)
 
 双击 os.uvprojx 打开它，你应该能看到如下界面
 
-![](keil-uvision-main-ui.png)
+![keil-uvision-main-ui](keil-uvision-main-ui.png)
 
 点击红色箭头所指向的 Build 按钮后，如果你看到下面显示 0 Error 相关的提示，说明编译成功，你的环境没有问题，否则你应该仔细观察报错详情，有针对性的解决它。（同行都是文件有遗漏或者相关的 Pack 没有安装或者 Keil 没有注册导致无法编译过大的代码）
 
@@ -144,27 +144,27 @@ cover_image: cover.png
 
 这里我们选择使用模拟器仿真，所以我们按照红色箭头进行相关操作。
 
-![](keil-set-using-simulator.png)
+![keil-set-using-simulator](keil-set-using-simulator.png)
 
 请注意红色框框中的那些参数不要打错，否则有错误后在仿真阶段不会有任何提示，但是就是无法执行。这些参数的含义是告诉 Keil 的仿真环境使用何种 CPU 的模拟器以及相关的调试器。
 
 点击 OK 按钮以后我们再点击 Debug 按钮开始正式进入调试环境
 
-![](keil-start-debug.png)
+![keil-start-debug](keil-start-debug.png)
 
 进入 Debug 的环境应该是下图所示
 
-![](keil-debug-watch-gpio.png)
+![keil-debug-watch-gpio](keil-debug-watch-gpio.png)
 
 我们按照箭头所指的操作将 GPIOB 和 GPIOE 引脚的观察窗打开，这里之所以打开这两个引脚的观察窗，是因为我自己的开发板上有两个 LED 灯是在这个引脚。所以我代码中是对这两个 GPIO 接口上的引脚做高低电平的切换作业。
 
 把调试窗口打开以后，再点击 Run 按钮则开始模拟器的全速运行了。
 
-![](keil-start-run-debug.png)
+![keil-start-run-debug](keil-start-run-debug.png)
 
 然后你应该会看到调试窗口中的这几个位置的对勾会自动不停的勾上或者取消，这些对勾代表了电平高低，勾上就是高电平，取消对勾就是低电平，对应到物理硬件上就是 LED 灯的亮和灭。
 
-![](keil-watch-gpio-status-in-running.png)
+![keil-watch-gpio-status-in-running](keil-watch-gpio-status-in-running.png)
 
 如果你能看到这个现象，那么恭喜你，你的环境配置完全正常。
 
@@ -181,7 +181,7 @@ STM32 是基于 Cortex-M3 微架构的单片机，这个微架构的规范非常
 
 所以跟着人多和资源多的地方走肯定没错。
 
-![](cortex-cm3-book.png)
+![cortex-cm3-book](cortex-cm3-book.png)
 
 ## 总结
 这一章我们把学习所需的基本环境做了简单介绍，下一章就开始正式进入 OS 开发了。
