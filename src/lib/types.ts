@@ -6,7 +6,6 @@ export interface ArticleHeading {
 
 export interface ArticleFrontmatter {
   title?: string;
-  slug?: string;
   date?: string;
   author?: string;
   category?: string | string[];

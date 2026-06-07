@@ -3,7 +3,7 @@ import path from "node:path";
 
 const ARTICLES_SUBDIR = process.env.ARTICLES_DIR ?? "articles";
 
-export const ARTICLES_DIR = path.join(/* turbopackIgnore: true */ process.cwd(), ARTICLES_SUBDIR);
+const ARTICLES_DIR = path.join(/* turbopackIgnore: true */ process.cwd(), ARTICLES_SUBDIR);
 
 function resolveSafePath(relativePath: string): string {
   const normalized = relativePath.replace(/\\/g, "/");

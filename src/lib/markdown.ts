@@ -136,7 +136,6 @@ function parseFrontmatter(content: string): ArticleFrontmatter {
 
   return {
     title: map.get("title"),
-    slug: map.get("slug"),
     date: map.get("date"),
     author: map.get("author"),
     cover_image: map.get("cover_image"),

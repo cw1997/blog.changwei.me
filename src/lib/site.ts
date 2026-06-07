@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const LANGUAGE_LABELS: Record<string, string> = {
+const LANGUAGE_LABELS: Record<string, string> = {
   "zh-CN": "中文",
   en: "EN",
   ja: "日本語",
