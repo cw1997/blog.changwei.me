@@ -25,7 +25,7 @@ export async function GET() {
     })
     .join("\n");
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title>Chang Wei Blog</title>\n    <link>${escapeXml(siteUrl)}</link>\n    <description>Chang Wei Blog</description>${items}\n  </channel>\n</rss>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n  <channel>\n    <title>Chang Wei's Blog</title>\n    <link>${escapeXml(siteUrl)}</link>\n    <description>Chang Wei's Blog</description>${items}\n  </channel>\n</rss>`;
 
   return new Response(xml, {
     headers: {
