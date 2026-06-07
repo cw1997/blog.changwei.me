@@ -84,15 +84,15 @@ focus，焦点。在GUI图形用户界面中，他表示目前可以通过键盘
 
 但是请注意，这个“启发式焦点显示”的行为在Chrome下很奇怪：如果你是直接使用button标签以及User-Agent样式（浏览器原生默认样式），没有对button标签的样式做任何覆盖和重写，那么上述“启发式焦点显示”的表现是默认存在的。但是如果你准备自己实现一个CSS框架中的按钮样式，例如antd的Button组件，那么你会发现这个“启发式焦点显示”的表现特性消失了。
 
-![focus-style-with-black-outline-on-Chrome-button-default](D:\GitHub\cw1997\blog\web-front-end\placeholder-and-focus-on-web-frond-end\focus-style-with-black-outline-on-Chrome-button-default.png)
+![focus-style-with-black-outline-on-Chrome-button-default](./focus-style-with-black-outline-on-Chrome-button-default.png)
 
 上图为Chrome 83的情况，自己覆盖button标签的原生样式之后，点击按钮后会出现一个突兀的黑色outline，影响美观
 
 因此需要你自己去实现。那么该怎么实现呢？
 
-[https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudodrafts.csswg.org/selectors-4/#the-focus-visible-pseudo](https://link.zhihu.com/?target=https%3A//drafts.csswg.org/selectors-4/%23the-focus-visible-pseudo)
+[Selectors Level 4: The Focus-Visible Pseudo-Class](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo)
 
-css的[Selectors Level 4](https://link.zhihu.com/?target=https%3A//drafts.csswg.org/selectors-4/%23the-focus-visible-pseudo)规范中提供了
+css的[Selectors Level 4](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo)规范中提供了
 
 ```text
 :focus-visible
@@ -106,7 +106,7 @@ css的[Selectors Level 4](https://link.zhihu.com/?target=https%3A//drafts.csswg.
 
 :focus-visible目前在Firefox 78中是默认支持的，而在Chrome版本（2020年7月 Version 83.0.4103.116 (Official Build) (64-bit)）中仍然为实验性支持功能，也就是说需要在
 
-[chrome://flags/#enable-experimental-web-platform-features](https://link.zhihu.com/?target=chrome%3A//flags/%23enable-experimental-web-platform-features)
+[chrome://flags/#enable-experimental-web-platform-features](chrome://flags/#enable-experimental-web-platform-features)
 
 中开启才可以体验。而默认情况下这个特性是Disabled状态。所以为了使得默认情况下也能使用，需要使用WICG/focus-visible这个polyfill（兼容脚本）
 
