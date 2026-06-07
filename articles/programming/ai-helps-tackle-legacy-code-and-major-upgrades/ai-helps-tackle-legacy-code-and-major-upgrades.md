@@ -56,7 +56,7 @@ AI 的发展，对于解决这类问题有非常大的帮助。
 
 Agent 自动做了这些事：读 `package.json`、搜索各依赖的引用、对照 v4 的 API 变更（例如 `react-resizable-panels` 的 `Group` / `Separator` / `orientation`）、改 `resizable.tsx` 等封装组件，再列 todo 逐项检查 `tailwind-merge`、`sonner`、`recharts` 等是否还有遗漏。
 
-![](ai-migration-screenshot.jpg)
+![AI-assisted dependency migration screenshot](./ai-migration-screenshot.jpg)
 
 以前这种「七个 major bump 打包处理」的任务，我可能会拖好几个星期——不是不能升，是**心理成本高**。现在有 AI 把探索、搜索、改代码串起来，一个下午就能推进到可 review 的状态。
 
