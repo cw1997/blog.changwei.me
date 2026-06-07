@@ -14,7 +14,7 @@ tag: [Web, Web Front-End, Front-End, User Interface(UI), UX(User Experience), Ty
 
 收到同事反馈，天才计划 https://tidb.io/talent-plan 页面的 introduction 部分文字的第一行溢出。
 
-![天才计划页面的 introduction 部分文字的第一行溢出](./%E5%A4%A9%E6%89%8D%E8%AE%A1%E5%88%92%E9%A1%B5%E9%9D%A2%E7%9A%84%20introduction%20%E9%83%A8%E5%88%86%E6%96%87%E5%AD%97%E7%9A%84%E7%AC%AC%E4%B8%80%E8%A1%8C%E6%BA%A2%E5%87%BA.png)
+![Talent Plan page introduction text first line overflow](./talent-plan-intro-text-overflow.png)
 
 天才计划 https://tidb.io/talent-plan 页面的 introduction 部分文字的第一行溢出
 
