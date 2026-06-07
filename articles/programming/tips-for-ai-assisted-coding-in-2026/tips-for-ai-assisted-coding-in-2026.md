@@ -19,7 +19,7 @@ tag: [AI, OpenCode, Cursor, Prompt, AGENTS.md, Vibe-Coding, LLM, Developer-Tools
 Andrej Karpathy 在 2025 年提出的 **Vibe Coding**，描述的是一种「跟着感觉走」的编程方式：你大致描述意图，AI 生成代码，你不太细看 diff，遇到报错就把错误贴回去让它修，循环直到能跑。这种方式做原型、玩具项目、学习探索时非常高效。
 
 依照vibe coding的定义，其中的重要概念是，用户完全接受AI产生的代码，不需要对其有完全的计算机科学理解。
-反之，AI研究者Simon Willison提到：“若你程序里的每一行内联内容都是大型语言模型写的，但你检查和测试过并完全理解，在我看来这就不算是vibe coding，这只是把大型语言模型当成打字助理。”
+反之，AI研究者Simon Willison提到：“若你程序里的每一行内容都是大型语言模型写的，但你检查和测试过并完全理解，在我看来这就不算是vibe coding，这只是把大型语言模型当成打字助理。”
 
 因此，通过输入Prompt然后请AI帮忙生成代码，然后程序员需要review生成的代码，进行手动测试并且approve的编程并不算是Vibe Coding，因此我的标题特地说明是**AI 辅助 Coding**而非**Vibe Coding**。
 
