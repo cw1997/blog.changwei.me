@@ -2,7 +2,7 @@
 title: Intel 开发者文档中一些修订细节
 slug: some-revision-details-in-Intel-manuals
 date: 2022-03-02 07:39:27
-author: Chang Wei(昌维)<changwei1006@gmail.com>
+author: Chang Wei (昌维) <changwei1006@gmail.com>
 language: zh-Hans-CN
 category: [CPU, datasheet, Intel]
 tag: [CPU, datasheet, Intel]

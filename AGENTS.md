@@ -48,3 +48,9 @@ export default async function NamePageServer(props: PageProps<"/route">) {
 - Source: CC-licensed images from Wikimedia Commons; download with `curl -sL -o <local-path> <wikimedia-url>`
 - When adding images, find correct Wikimedia Commons hash path (extract from page source `grep -oP '(?<=src=")[^"]*upload\.wikimedia[^"]*<filename>[^"]*'`)
 - Remove unused old local image files after replacing references
+
+## File Naming (All Files)
+- All filenames (`.md`, images, videos, and any other assets) must use semantic kebab-case — lowercase letters, hyphens as word separators, no underscores or spaces (e.g. `getting-started-with-ai.md`, `cnn-max-pooling.png`)
+- Directory names follow the same kebab-case convention as files
+- The filename should reflect the content's topic in a concise, human-readable way
+- Avoid generic names like `image1.png`, `photo.jpg`, `page1.md`

@@ -1105,7 +1105,7 @@ LibreLane 自动执行 **78 个 Step**：从 Verilator Lint → Yosys 综合 →
 
 你知道了集成电路（IC）无处不在——从手机到汽车到医疗设备，每一件电子设备的灵魂都是一颗 IC。你了解了 IC 如何从需求规格开始，经过 RTL 编码、验证、综合、布局布线，最终变成 GDSII 文件交付给代工厂。你认识了支撑整个半导体行业的 EDA 三巨头（Synopsys、Cadence、Siemens EDA）和设计芯片的 Fabless 巨头（NVIDIA、Qualcomm、Apple、AMD 等）。你走过了 IC 制造的全程——掩膜制作、晶圆制造（FEOL+BEOL）、CP 测试、封装、最终测试——也认识了制造这些芯片的代工厂（TSMC、Samsung、Intel、SMIC、GlobalFoundries、SkyWater 等）。你理解了为什么 3nm 芯片的 NRE 可以高达 $6 亿，也知道了 MPW（多项目晶圆）如何让个人开发者用 $100-$15,000 就能流片。
 
-最后，通过 librelane-playground 这个实际的交通信号灯控制器项目，我们亲手操作了一次完整的开源 ASIC 综合——从一行的 `module top(...)` 开始，经过 78 个流程步骤，最终在 KLayout 中看到了真实的 GDSII 版图。
+最后，通过 librelane-playground 这个实际的交通信号灯控制器项目，我们亲手操作了一次完整的开源 ASIC 综合——从一行 `module top(...)` 代码开始，经过 78 个流程步骤，最终在 KLayout 中看到了真实的 GDSII 版图。
 
 十年前，做一颗芯片是千万美元起步的游戏。而在 2026 年的今天，借助 **SkyWater 130nm 开源 PDK**、**LibreLane 开源 EDA 流程** 和 **Tiny Tapeout 低成本 MPW 服务**，任何人都可以用 $100 起步的价格实现自己的芯片设计。
 

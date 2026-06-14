@@ -18,7 +18,7 @@ tag: [AI, OpenCode, Cursor, Prompt, AGENTS.md, Vibe-Coding, LLM, Developer-Tools
 
 Andrej Karpathy 在 2025 年提出的 **Vibe Coding**，描述的是一种「跟着感觉走」的编程方式：你大致描述意图，AI 生成代码，你不太细看 diff，遇到报错就把错误贴回去让它修，循环直到能跑。这种方式做原型、玩具项目、学习探索时非常高效。
 
-依照vibe coding的定义，其中的重要概念是，用户完全接受AI产生的代码，不需要对其有完全的计算机科学理解。
+依照 Vibe Coding 的定义，其中的重要概念是，用户完全接受AI产生的代码，不需要对其有完全的计算机科学理解。
 反之，AI研究者Simon Willison提到：“若你程序里的每一行内容都是大型语言模型写的，但你检查和测试过并完全理解，在我看来这就不算是vibe coding，这只是把大型语言模型当成打字助理。”
 
 因此，通过输入Prompt然后请AI帮忙生成代码，然后程序员需要review生成的代码，进行手动测试并且approve的编程并不算是Vibe Coding，因此我的标题特地说明是**AI 辅助 Coding**而非**Vibe Coding**。
@@ -50,7 +50,7 @@ Andrej Karpathy 在 2025 年提出的 **Vibe Coding**，描述的是一种「跟
 
 ### LLM 选型建议
 
-2026 年的模型百花齐放，但是很多聪明的模型价格也很昂贵，需要精打细算,根据用途来切换使用不同模型：
+2026 年的模型百花齐放，但是很多聪明的模型价格也很昂贵，需要精打细算，根据用途来切换使用不同模型：
 
 | 任务类型 | 推荐模型方向 | 说明 |
 |----------|--------------|------|
@@ -91,13 +91,13 @@ AI模型价格差别很大，像是 OpenCode 等就很便宜，但是 Cursor，C
 - Big Pickle（这是OpenCode的一个隐身模型，OpenCode官方没有公开其内部实现，但是被很多网友怀疑是智谱的GLM-4.6）
 - DeepSeek V4 Flash（DeepSeek）
 - Mimo V2.5（Xiaomi）
-- MinMax M3（MiniMax）
+- MiniMax M3（MiniMax）
 - Nemotron 3 Ultra（NVIDIA）
 
 ![OpenCode free model selection](./opencode-free-model.png)
 
 OpenCode它是一个 MIT 许可的开源 AI 编程 Agent，由 terminal.shop 团队维护，GitHub 上已有超过 17 万 star（截至 2026 年 6 月）。与其他工具最大的不同是：**Provider 无关**——你可以自带 Anthropic、OpenAI、Google 等 API Key，也可以用 OpenCode 自己的 Go / Zen 托管服务。
-OpenCode有TUI和GUI，虽然GUI还有很多BUG以及性能偏差的问题，不过目前来看仍然是社区关注度比较高的开源AI Coding工具，非常推荐，其他还有老牌的Continue.dev等也可以关注一下。
+OpenCode有TUI和GUI，虽然GUI还有很多 BUG 以及性能偏差的问题，不过目前来看仍然是社区关注度比较高的开源AI Coding工具，非常推荐，其他还有老牌的Continue.dev等也可以关注一下。
 
 剩下还有其他一些免费薅羊毛或者非常便宜的渠道推荐：
 1. GitHub Copilot，学生认证后每个月有 300 次请求。但是最近 rate limit限制非常厉害，如果在一个请求里面通过提示词发起长程任务有概率会触发 rate limit导致中断，因此几乎只能用来做一些小改动。

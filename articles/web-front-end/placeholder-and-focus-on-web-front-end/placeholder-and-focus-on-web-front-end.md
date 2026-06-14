@@ -1,6 +1,6 @@
 ---
 title: 前端开发中的placeholder与focus细节
-slug: placeholder-and-focus-on-web-frond-end
+slug: placeholder-and-focus-on-web-front-end
 date: 2020-07-07 19:06
 author: Chang Wei (昌维) <changwei1006@gmail.com>
 language: zh-Hans-CN
