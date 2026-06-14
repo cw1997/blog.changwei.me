@@ -364,6 +364,46 @@ button {
   background-color: var(--shiki-dark-bg);
 }
 
+.markdown-body [data-rehype-pretty-code-figure] {
+  position: relative;
+}
+
+.markdown-body [data-rehype-pretty-code-figure][data-code-lang]:not([data-code-lang="text"])::before {
+  content: attr(data-code-lang);
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: var(--surface);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
+  line-height: 1.5;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.markdown-body [data-rehype-pretty-code-figure] pre {
+  counter-reset: line;
+}
+
+.markdown-body [data-rehype-pretty-code-figure] pre [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 3ch;
+  text-align: right;
+  margin-right: 1.25rem;
+  color: var(--muted);
+  font-size: 0.8em;
+  user-select: none;
+}
+
 .markdown-body blockquote {
   border-left: 3px solid var(--accent);
   padding-left: 1rem;

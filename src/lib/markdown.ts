@@ -7,6 +7,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
 import { rehypePrettyCodeOptions } from "@/lib/rehype-pretty-code-options";
+import { rehypeCodeBlockEnhancer } from "@/lib/rehype-code-block-enhancer";
 import type { ArticleFrontmatter } from "@/lib/types";
 
 const LEADING_FRONTMATTER_BLOCK_REGEX = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/;
@@ -281,6 +282,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
     .use(remarkMath)
     .use(remarkRehype)
     .use(rehypePrettyCode, rehypePrettyCodeOptions)
+    .use(rehypeCodeBlockEnhancer)
     .use(rehypeKatex, { strict: false })
     .use(rehypeSlug)
     .use(rehypeStringify)
