@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="50%" style="stop-color:#1a2744"/>
+      <stop offset="100%" style="stop-color:#0d1f3c"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0099ff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg)"/>
+
+  <!-- Grid pattern background -->
+  <g opacity="0.05" stroke="#00d4ff" stroke-width="0.5">
+    <line x1="0" y1="50" x2="800" y2="50"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="500" y1="0" x2="500" y2="400"/>
+    <line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="700" y1="0" x2="700" y2="400"/>
+  </g>
+
+  <!-- WiFi waves symbol -->
+  <g transform="translate(400, 150)" fill="none" stroke="url(#accent)" stroke-width="3" filter="url(#glow)">
+    <path d="M-60,-10 Q0,-50 60,-10" opacity="0.5"/>
+    <path d="M-45,5 Q0,-30 45,5" opacity="0.65"/>
+    <path d="M-30,20 Q0,-10 30,20" opacity="0.8"/>
+    <circle cx="0" cy="32" r="4" fill="url(#accent)" stroke="none"/>
+  </g>
+
+  <!-- Lock icon -->
+  <g transform="translate(400, 150)">
+    <rect x="-12" y="8" width="24" height="20" rx="3" fill="none" stroke="url(#accent)" stroke-width="2.5" filter="url(#glow)"/>
+    <path d="M-8,8 V2 A8,8 0 0,1 8,2 V8" fill="none" stroke="url(#accent)" stroke-width="2.5" filter="url(#glow)"/>
+    <circle cx="0" cy="18" r="3" fill="url(#accent)" filter="url(#glow)"/>
+  </g>
+
+  <!-- Title -->
+  <text x="400" y="240" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="28" font-weight="bold">
+    WiFi加密与破解完全指南
+  </text>
+  <text x="400" y="275" text-anchor="middle" fill="#8899aa" font-family="Arial, sans-serif" font-size="14">
+    从PSK到WPA3的密码学与攻击技术详解
+  </text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="380" width="800" height="20" fill="url(#accent)" opacity="0.3"/>
+  <text x="400" y="395" text-anchor="middle" fill="#556677" font-family="monospace" font-size="10">
+    WEP │ WPA │ WPA2 │ WPA3 │ Aircrack-ng │ Hashcat │ 802.11
+  </text>
+
+  <!-- Decorative elements -->
+  <circle cx="50" cy="350" r="1" fill="#00d4ff" opacity="0.3"/>
+  <circle cx="150" cy="320" r="1.5" fill="#00d4ff" opacity="0.4"/>
+  <circle cx="650" cy="330" r="1" fill="#00d4ff" opacity="0.3"/>
+  <circle cx="720" cy="360" r="2" fill="#00d4ff" opacity="0.2"/>
+  <circle cx="30" cy="60" r="1" fill="#00d4ff" opacity="0.2"/>
+  <circle cx="770" cy="80" r="1.5" fill="#00d4ff" opacity="0.3"/>
+</svg>
