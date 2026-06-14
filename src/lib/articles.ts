@@ -181,6 +181,10 @@ async function fetchAllArticlesUncached(): Promise<Article[]> {
 const getAllArticlesCached = unstable_cache(fetchAllArticlesUncached, ["all-articles"]);
 
 export async function getAllArticles(): Promise<Article[]> {
+  if (process.env.NODE_ENV === "development") {
+    return fetchAllArticlesUncached();
+  }
+
   return getAllArticlesCached();
 }
 
