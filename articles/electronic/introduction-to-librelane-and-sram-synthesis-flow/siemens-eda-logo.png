@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    
+    <link rel="preconnect" href="https://static.sw.cdn.siemens.com" /><link rel="dns-prefetch" href="https://static.sw.cdn.siemens.com" /><link rel="preconnect" href="https://images.sw.cdn.siemens.com/" /><link rel="dns-prefetch" href="https://images.sw.cdn.siemens.com/" /><link rel="icon" type="image/svg+xml" href="/img/favicon.svg" /><link rel="alternate icon" href="/img/favicon.ico" /><link rel="stylesheet" href="/styles.css" /><link rel="canonical" href="https://eda.sw.siemens.com/en-US/404/" /><link rel="alternate" href="https://eda.sw.siemens.com/en-US/404/" hreflang="en" /><link rel="alternate" href="https://eda.sw.siemens.com/en-US/404/" hreflang="x-default" /><meta charSet="utf-8" /><meta http-equiv="x-ua-compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /><meta name="robots" content="noindex, nofollow"><meta name="description" content="404 ERROR"><meta property="og:type" content="website"><meta property="og:url" content="https://eda.sw.siemens.com/en-US/404/"><meta property="og:locale" content="en-US"><meta property="og:title" content="undefined"><meta property="og:description" content="404 ERROR"><meta property="og:site_name" content="Siemens Digital Industries Software"><meta property="og:image" content="https://images.sw.cdn.siemens.com/shared/siemens-opengraph-1200x630.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="Siemens Digital Industries Software"><meta name="twitter:title" content="undefined"><meta name="twitter:description" content="404 ERROR"><meta name="twitter:image" content="https://images.sw.cdn.siemens.com/shared/siemens-twitter-1200x600.jpg"><meta name="twitter:creator" content="@sw.siemens.com"><title>404 ERROR | Siemens Software</title>
+
+    <link rel="preload" href="https://static.sw.cdn.siemens.com/digitalexperiences/search/1.x/searchHeaderVital.css" as="style" type="text/css" />
+    <link rel="modulepreload" href="https://static.sw.cdn.siemens.com/disw/universal-components/1.x/web/index.js">
+    <link rel="preload" href="https://static.sw.cdn.siemens.com/disw/disw-utils/1.x/disw-utils.min.js" as="script" type="text/javascript" />
+
+    <!-- Search Header Styles -->
+    <link rel='stylesheet' type="text/css" href='https://static.sw.cdn.siemens.com/digitalexperiences/search/1.x/searchHeaderVital.css'/>
+    <!-- Load the universal components module -->
+    <script src="https://static.sw.cdn.siemens.com/disw/disw-utils/1.x/disw-utils.min.js"></script>
+    <script>
+      window.disw.init({
+        account: { authEnv: 'prod' },
+        locales: "en-US".split(","),
+        gtm: {gtmId: 'GTM-NLLSC63', pageId: '7nMDJfo81TpLaR37vvDjAD'},
+        cart: { env: 'prod', checkout: { enabled: 'true' } },
+        chat: { env: 'prod', pageId: '7nMDJfo81TpLaR37vvDjAD' },
+        country: { env: 'prod' },
+        localizations: {env: 'prod' },
+      });
+    </script>
+    <script src="https://static.sw.cdn.siemens.com/disw/universal-components/1.x/web/index.js"></script>
+    
+    
+    <script type="module">window.universalComponents.init(["disw-header-v2","disw-footer","disw-live-chat"]);</script>
+    
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            
+        ]
+    }
+</script>
+  </head>
+  <body id="body" class="flex-body "><div id='visionSprite'><script>const ajax = new XMLHttpRequest();ajax.open("GET", "https://static.sw.cdn.siemens.com/icons/icons-vision.svg?v=2", true);ajax.send();ajax.onload = function(e) {const div = document.createElement("div");div.innerHTML = ajax.responseText;document.body.insertBefore(div, document.body.childNodes[0]);}</script></div>
+    <!-- Global Header and navigation -->
+    
+    
+    <div class='headerContainer'>
+      <disw-header-v2 locales="true" account="true" cart="true" search="true" scroll="true" theme="dark" searchid="disw-header-search"></disw-header-v2>
+      
+      <div class="disw-header-search disw-header-search-7 disw-header-search-8 disw-header-search-10" id="disw-header-search" data-locale='en-US'>
+      </div>
+    </div>
+  
+
+    <div id="react-root"></div>
+
+    
+    
+      
+      <div class="flex-content p-y" id="disw_content">
+        
+        
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  <div id="pageHeadingComponent" class="pageHeading">
+    
+    <div class="text-start container mt-7 page-heading"></div>
+  </div>
+
+
+
+
+  <div class='theme-group theme-light'><div id='7nMDJfo81TpLaR37vvDjAD' class='sites404 themed-component-wrapper'><div class="container mb-7"><div class="row align-items-center"><div class="col-12 col-lg-6"><strong class="text-kicker">404 ERROR</strong><h1 class="header-focus"><span>Oops! Page not available.</span></h1><p>This could be caused by a typo, server error, or page that has moved.</p><p>Next steps:</p><ul><li>Check the URL and try again</li><li>Start a search of the Siemens Digital Industries Software site</li><li>Visit <a href="https://community.sw.siemens.com/s/">Siemens Community</a></li></ul><div class="mt-6"><p><a tabindex="0" class="btn de-button btn-text" href="https://www.siemens.com/en-US/eda-cloud-solutions/" target="_blank" rel="noopener noreferrer" role="button"><span class="">Back to home</span></a></p></div></div><div class="col-12 col-md-6 d-flex justify-content-center mx-auto"><picture><img src="https://images.sw.cdn.siemens.com/siemens-disw-assets/public/2UkdEl2rCHpJpjnh1IgpEU/en-US/Mask%20Group%202.png?auto=format,compress" alt="" loading="lazy"/></picture></div></div></div></div></div>
+
+
+        
+        
+        
+      </div>
+      <div id="disw_cart"></div>
+    
+
+    
+    <disw-footer slug="global-footer" theme="dark"></disw-footer>
+    
+    <disw-live-chat />
+
+    
+    <script src="https://static.sw.cdn.siemens.com/digitalexperiences/utility/1.x/vendor.min.js" defer></script><script type="module" src="/js/is-land.js"></script><script src="https://static.sw.cdn.siemens.com/digitalexperiences/search/1.x/searchbox.load.js" defer></script><script>
+        function breadCrumbContext() {
+            const breadCrumbContextInputData = {
+                'page': '7nMDJfo81TpLaR37vvDjAD',
+                'site': 'eda',
+                'locale': 'en-US'
+            }
+
+            // make call to addContextToLinks for passing breadcrumb context. 
+            if (typeof disw !== 'undefined' && disw.context && disw.context.addContextToLinks) {
+                disw.context.addContextToLinks(breadCrumbContextInputData, 'bc');
+            }
+        }
+        
+        function domObserverCallback(mutations) {  
+            mutations.forEach(function(mutation) {
+                if ((mutation.type === 'childList' && mutation.addedNodes.length != 0) || (mutation.type === 'characterData')) {
+                    breadCrumbContext();
+                }
+            });
+        }
+ 
+        const observer = new MutationObserver(domObserverCallback);
+
+        let options = {
+            childList: true,
+            attributes: true,
+            characterData: true,
+            subtree: true,
+            attributeOldValue: true,
+            characterDataOldValue: true
+        };
+
+        observer.observe(document, options)
+
+        breadCrumbContext();
+  </script><script type="module" src="/siteScripts/analyticsEventBinder.js"></script></body>
+</html>
