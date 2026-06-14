@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Serif_SC } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "./SiteFooter";
+import { SiteHeader } from "./SiteHeader";
 import { defaultLocale, getSiteUrl, siteDescription, siteName } from "@/lib/site";
 import "@/app/globals.css";
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, CalendarClock, Rss } from "lucide-react";
 import type { Article } from "@/lib/types";
 import { articlePath, categoryPath, languageLabel, tagPath } from "@/lib/site";
-import { JsonLd } from "@/components/json-ld";
+import { JsonLd } from "./JsonLd";
 import { SummaryImageStrip } from "@/components/summary-image-strip";
 
 interface HomePageProps {

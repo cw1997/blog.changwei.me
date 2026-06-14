@@ -2,12 +2,12 @@ import Link from "next/link";
 import { CalendarClock, FolderOpen, Tag, UserRound } from "lucide-react";
 import type { Article } from "@/lib/types";
 import { categoryPath, languageLabel, tagPath } from "@/lib/site";
-import { ArticleContentEnhancer } from "@/components/article-content-enhancer";
-import { ArticleFloatingActions } from "@/components/article-floating-actions";
-import { ArticleMarkdown } from "@/components/article-markdown";
-import { ArticleShareBar } from "@/components/article-share-bar";
+import { ArticleContentEnhancer } from "./ArticleContentEnhancer";
+import { ArticleFloatingActions } from "./ArticleFloatingActions";
+import { ArticleMarkdown } from "./ArticleMarkdown";
+import { ArticleShareBar } from "./ArticleShareBar";
 import { ArticleToc } from "@/components/article-toc";
-import { ArticleTocDrawer } from "@/components/article-toc-drawer";
+import { ArticleTocDrawer } from "./ArticleTocDrawer";
 
 interface ArticleDetailPageProps {
   article: Article;

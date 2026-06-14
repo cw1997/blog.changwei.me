@@ -1,6 +1,6 @@
 "use client";
 
-import { ArticleShareDialog } from "@/components/article-share-dialog";
+import { ArticleShareDialog } from "./ArticleShareDialog";
 import { ArrowUp, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 

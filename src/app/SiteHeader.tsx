@@ -5,9 +5,9 @@ import Link from "next/link";
 import { BookOpenText, FolderOpen, Home, Menu, Rss, Tags, X, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { GitHubIcon } from "@/components/brand-icons";
-import { ScrollProgressBar } from "@/components/scroll-progress-bar";
-import { ReaderSettingsToggle } from "@/components/reader-settings-toggle";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ScrollProgressBar } from "./ScrollProgressBar";
+import { ReaderSettingsToggle } from "./ReaderSettingsToggle";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface SiteHeaderProps {
   // no props

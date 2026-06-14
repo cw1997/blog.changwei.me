@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArticleImageLightbox } from "@/components/article-image-lightbox";
+import { ArticleImageLightbox } from "./ArticleImageLightbox";
 
 const DRAG_THRESHOLD = 5;
 const COPY_FEEDBACK_MS = 1500;
