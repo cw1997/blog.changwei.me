@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SiteFooter } from "@/components/footer/SiteFooter";
 import { SiteHeader } from "@/components/header/SiteHeader";
 import { defaultLocale, getSiteUrl, siteDescription, siteName } from "@/lib/site";
+import "katex/dist/katex.min.css";
 import "@/app/globals.css";
 
 const geistSans = Geist({

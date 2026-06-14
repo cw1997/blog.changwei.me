@@ -1,5 +1,7 @@
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
@@ -276,8 +278,10 @@ export function wrapTablesWithScrollContainer(html: string): string {
 export async function markdownToHtml(markdown: string): Promise<string> {
   const output = await remark()
     .use(remarkGfm)
+    .use(remarkMath)
     .use(remarkRehype)
     .use(rehypePrettyCode, rehypePrettyCodeOptions)
+    .use(rehypeKatex, { strict: false })
     .use(rehypeSlug)
     .use(rehypeStringify)
     .process(markdown);
